@@ -12,16 +12,16 @@ namespace syshealth_api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsuarioController : ParentController<Usuario>
-    {
-        public UsuarioController(ILogger<UsuarioController> logger, IMongoDbSettings mongoDbSettings) :
+    public class PacienteController : ParentController<Paciente>
+    {        
+        public PacienteController(ILogger<PacienteController> logger, IMongoDbSettings mongoDbSettings) : 
             base(logger, mongoDbSettings)
-        {
-
+        {            
+            
         }
 
         [HttpGet]
-        public IEnumerable<Usuario> Get()
+        public IEnumerable<Paciente> Get()
         {
             return GetCollection().Find(_ => true).ToList();
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
@@ -12,16 +13,16 @@ namespace syshealth_api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsuarioController : ParentController<Usuario>
+    public class PedidoInternacaoController : ParentController<PedidoInternacao>
     {
-        public UsuarioController(ILogger<UsuarioController> logger, IMongoDbSettings mongoDbSettings) :
+        public PedidoInternacaoController(ILogger<PedidoInternacaoController> logger, IMongoDbSettings mongoDbSettings) :
             base(logger, mongoDbSettings)
         {
 
         }
 
         [HttpGet]
-        public IEnumerable<Usuario> Get()
+        public IEnumerable<PedidoInternacao> Get()
         {
             return GetCollection().Find(_ => true).ToList();
         }

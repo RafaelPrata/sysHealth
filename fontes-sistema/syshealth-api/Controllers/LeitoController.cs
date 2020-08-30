@@ -9,19 +9,19 @@ using syshealth_api.Data;
 using syshealth_api.Domain;
 
 namespace syshealth_api.Controllers
-{
+{    
     [ApiController]
     [Route("[controller]")]
-    public class UsuarioController : ParentController<Usuario>
+    public class LeitoController : ParentController<Leito>
     {
-        public UsuarioController(ILogger<UsuarioController> logger, IMongoDbSettings mongoDbSettings) :
+        public LeitoController(ILogger<LeitoController> logger, IMongoDbSettings mongoDbSettings) :
             base(logger, mongoDbSettings)
         {
 
         }
 
         [HttpGet]
-        public IEnumerable<Usuario> Get()
+        public IEnumerable<Leito> Get()
         {
             return GetCollection().Find(_ => true).ToList();
         }
