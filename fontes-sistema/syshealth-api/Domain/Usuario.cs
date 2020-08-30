@@ -1,15 +1,10 @@
+using syshealth_api.Domain;
 using System;
 
-namespace syshealth_api
+namespace syshealth_api.Domain
 {
-    public class Usuario
+    public class Usuario : DomainBase
     {
-        public DateTime Date { get; set; }
 
-        public int TemperatureC { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-
-        public string Summary { get; set; }
     }
 }
