@@ -21,9 +21,32 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Perfil> Get()
+        [Route("{id}")]
+        [Route("/Perfil")]
+        public IEnumerable<Perfil> Get(string id)
         {
-            return GetCollection().Find(_ => true).ToList();
+            return Listar(id);
+        }
+
+        [HttpPost]
+        public void Post([FromBody] Perfil objPerfil)
+        {
+            Gravar(objPerfil);
+        }
+
+        [HttpPut("{id}")]
+        public void Update(string id, [FromBody] Perfil objPerfil)
+        {
+            var update = Builders<Perfil>.Update
+                .Set("xxxxxxxx", 123);
+
+            Atualizar(id, update);
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(string id)
+        {
+            Deletar(id);
         }
     }
 }

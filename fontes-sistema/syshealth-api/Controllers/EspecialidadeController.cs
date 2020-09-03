@@ -21,9 +21,32 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Especialidade> Get()
+        [Route("{id}")]
+        [Route("/especialidade")]
+        public IEnumerable<Especialidade> Get(string id)
         {
-            return GetCollection().Find(_ => true).ToList();
+            return Listar(id);
+        }
+
+        [HttpPost]
+        public void Post([FromBody] Especialidade objEspecialidade)
+        {
+            Gravar(objEspecialidade);
+        }
+
+        [HttpPut("{id}")]
+        public void Update(string id, [FromBody] Especialidade objEspecialidade)
+        {
+            var update = Builders<Especialidade>.Update
+                .Set("xxxxxxxx", 123);
+
+            Atualizar(id, update);
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(string id)
+        {
+            Deletar(id);
         }
     }
 }

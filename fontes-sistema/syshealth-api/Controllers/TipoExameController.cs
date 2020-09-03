@@ -21,9 +21,32 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TipoExame> Get()
+        [Route("{id}")]
+        [Route("/TipoExame")]
+        public IEnumerable<TipoExame> Get(string id)
         {
-            return GetCollection().Find(_ => true).ToList();
+            return Listar(id);
+        }
+
+        [HttpPost]
+        public void Post([FromBody] TipoExame objTipoExame)
+        {
+            Gravar(objTipoExame);
+        }
+
+        [HttpPut("{id}")]
+        public void Update(string id, [FromBody] TipoExame objTipoExame)
+        {
+            var update = Builders<TipoExame>.Update
+                .Set("xxxxxxxx", 123);
+
+            Atualizar(id, update);
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(string id)
+        {
+            Deletar(id);
         }
     }
 }

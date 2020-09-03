@@ -21,9 +21,32 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<StatusLeito> Get()
+        [Route("{id}")]
+        [Route("/StatusLeito")]
+        public IEnumerable<StatusLeito> Get(string id)
         {
-            return GetCollection().Find(_ => true).ToList();
+            return Listar(id);
+        }
+
+        [HttpPost]
+        public void Post([FromBody] StatusLeito objStatusLeito)
+        {
+            Gravar(objStatusLeito);
+        }
+
+        [HttpPut("{id}")]
+        public void Update(string id, [FromBody] StatusLeito objStatusLeito)
+        {
+            var update = Builders<StatusLeito>.Update
+                .Set("xxxxxxxx", 123);
+
+            Atualizar(id, update);
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(string id)
+        {
+            Deletar(id);
         }
     }
 }

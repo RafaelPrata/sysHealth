@@ -22,9 +22,32 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<PedidoInternacao> Get()
+        [Route("{id}")]
+        [Route("/PedidoInternacao")]
+        public IEnumerable<PedidoInternacao> Get(string id)
         {
-            return GetCollection().Find(_ => true).ToList();
+            return Listar(id);
+        }
+
+        [HttpPost]
+        public void Post([FromBody] PedidoInternacao objPedidoInternacao)
+        {
+            Gravar(objPedidoInternacao);
+        }
+
+        [HttpPut("{id}")]
+        public void Update(string id, [FromBody] PedidoInternacao objPedidoInternacao)
+        {
+            var update = Builders<PedidoInternacao>.Update
+                .Set("xxxxxxxx", 123);
+
+            Atualizar(id, update);
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(string id)
+        {
+            Deletar(id);
         }
     }
 }

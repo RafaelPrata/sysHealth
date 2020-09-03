@@ -21,9 +21,32 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TipoLeito> Get()
+        [Route("{id}")]
+        [Route("/TipoLeito")]
+        public IEnumerable<TipoLeito> Get(string id)
         {
-            return GetCollection().Find(_ => true).ToList();
+            return Listar(id);
+        }
+
+        [HttpPost]
+        public void Post([FromBody] TipoLeito objTipoLeito)
+        {
+            Gravar(objTipoLeito);
+        }
+
+        [HttpPut("{id}")]
+        public void Update(string id, [FromBody] TipoLeito objTipoLeito)
+        {
+            var update = Builders<TipoLeito>.Update
+                .Set("xxxxxxxx", 123);
+
+            Atualizar(id, update);
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(string id)
+        {
+            Deletar(id);
         }
     }
 }

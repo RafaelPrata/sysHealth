@@ -22,11 +22,32 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Agenda> Get()
+        [Route("{id}")]
+        [Route("/agenda")]
+        public IEnumerable<Agenda> Get(string id)
         {
-            var teste =  GetCollection().Find(_ => true).ToList();
+            return Listar(id);
+        }
 
-            return teste;
+        [HttpPost]
+        public void Post([FromBody] Agenda objAgenda)
+        {
+            Gravar(objAgenda);
+        }
+
+        [HttpPut("{id}")]
+        public void Update(string id, [FromBody] Agenda objAgenda)
+        {
+            var update = Builders<Agenda>.Update
+                .Set("xxxxxxxx", 123);
+
+            Atualizar(id, update);
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(string id)
+        {
+            Deletar(id);
         }
     }
 }

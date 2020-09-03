@@ -22,9 +22,32 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Medico> Get()
+        [Route("{id}")]
+        [Route("/Medico")]
+        public IEnumerable<Medico> Get(string id)
         {
-            return GetCollection().Find(_ => true).ToList();
+            return Listar(id);
+        }
+
+        [HttpPost]
+        public void Post([FromBody] Medico objMedico)
+        {
+            Gravar(objMedico);
+        }
+
+        [HttpPut("{id}")]
+        public void Update(string id, [FromBody] Medico objMedico)
+        {
+            var update = Builders<Medico>.Update
+                .Set("xxxxxxxx", 123);
+
+            Atualizar(id, update);
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(string id)
+        {
+            Deletar(id);
         }
     }
 }

@@ -21,9 +21,32 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Horario> Get()
+        [Route("{id}")]
+        [Route("/Horario")]
+        public IEnumerable<Horario> Get(string id)
         {
-            return GetCollection().Find(_ => true).ToList();
+            return Listar(id);
+        }
+
+        [HttpPost]
+        public void Post([FromBody] Horario objHorario)
+        {
+            Gravar(objHorario);
+        }
+
+        [HttpPut("{id}")]
+        public void Update(string id, [FromBody] Horario objHorario)
+        {
+            var update = Builders<Horario>.Update
+                .Set("xxxxxxxx", 123);
+
+            Atualizar(id, update);
+        }
+
+        [HttpDelete("{id}")]
+        public void Delete(string id)
+        {
+            Deletar(id);
         }
     }
 }
