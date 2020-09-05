@@ -4796,11 +4796,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rafael\\Documents\\Rafael\\GitHub\\sysHealth\\fontes-sistema\\syshealth-api\\syshealth-api.csproj",
+      "projectUniqueName": "C:\\Users\\Rafael\\source\\repos\\sysHealth\\fontes-sistema\\syshealth-api\\syshealth-api.csproj",
       "projectName": "syshealth-api",
-      "projectPath": "C:\\Users\\Rafael\\Documents\\Rafael\\GitHub\\sysHealth\\fontes-sistema\\syshealth-api\\syshealth-api.csproj",
+      "projectPath": "C:\\Users\\Rafael\\source\\repos\\sysHealth\\fontes-sistema\\syshealth-api\\syshealth-api.csproj",
       "packagesPath": "C:\\Users\\Rafael\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rafael\\Documents\\Rafael\\GitHub\\sysHealth\\fontes-sistema\\syshealth-api\\obj\\",
+      "outputPath": "C:\\Users\\Rafael\\source\\repos\\sysHealth\\fontes-sistema\\syshealth-api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

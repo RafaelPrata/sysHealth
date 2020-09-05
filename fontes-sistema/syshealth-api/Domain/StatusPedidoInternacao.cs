@@ -7,8 +7,6 @@ namespace syshealth_api.Domain
 {
     public class StatusPedidoInternacao : DomainBase
     {
-        public double Codigo { get; set; }
-
         public string Descricao { get; set; }
     }
 }

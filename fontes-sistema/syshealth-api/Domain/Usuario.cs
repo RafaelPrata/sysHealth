@@ -5,9 +5,7 @@ namespace syshealth_api.Domain
 {
     public class Usuario : DomainBase
     {
-        public int IdUsuario { get; set; }
-
-        public int IdPerfil { get; set; }
+        public double CodigoPerfil { get; set; }
 
         public string Nome { get; set; }
 

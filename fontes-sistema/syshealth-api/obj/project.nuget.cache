@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ChbwJW51dQ2a6Pk8kILbpxxGd2YF9Sj+ew072Fz7sksV8OURfIsCwDAPT0KtkZvw1nJ85CV5wWq+f+tXZrtieA==",
+  "dgSpecHash": "nD310tgy353St5tS/bza0jcBDtxEv0YBgBtsyD0UqOcVLlLntiT+8yoUcpZTA5NA2IsmYz8D7EGhsVze0G28+g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Rafael\\Documents\\Rafael\\GitHub\\sysHealth\\fontes-sistema\\syshealth-api\\syshealth-api.csproj",
+  "projectFilePath": "C:\\Users\\Rafael\\source\\repos\\sysHealth\\fontes-sistema\\syshealth-api\\syshealth-api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rafael\\.nuget\\packages\\dnsclient\\1.3.1\\dnsclient.1.3.1.nupkg.sha512",
     "C:\\Users\\Rafael\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",

@@ -32,6 +32,20 @@ namespace syshealth_api.Controllers
         [HttpPost]
         public void Post([FromBody] PedidoInternacao objPedidoInternacao)
         {
+            var filterLeito = Builders<Leito>.Filter.And("{CodigoStatusLeito: 2}", "{CodigoTipoLeito: 11}");
+            var updateLeito = Builders<Leito>.Update.Set("CodigoStatusLeito", 1);
+
+            var leitoDisponivel = db.GetCollection<Leito>(typeof(Leito).Name).FindOneAndUpdate(filterLeito, updateLeito);
+
+            if(leitoDisponivel != null)
+            {
+                objPedidoInternacao.CodigoLeito = leitoDisponivel.Codigo;
+            }
+            else
+            {
+                objPedidoInternacao.CodigoStatusPedidoInternacao = 1;
+            }
+            
             Gravar(objPedidoInternacao);
         }
 

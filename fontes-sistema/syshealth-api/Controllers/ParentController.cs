@@ -17,39 +17,41 @@ namespace syshealth_api.Controllers
 
         private IMongoDbSettings _mongoDbSettings;
 
+        public IMongoDatabase db;
+
         public ParentController(ILogger<ControllerBase> logger, IMongoDbSettings mongoDbSettings)
         {
             _logger = logger;
 
             _mongoDbSettings = mongoDbSettings;
+
+            db = new MongoClient(_mongoDbSettings.ConnectionString).GetDatabase(_mongoDbSettings.DatabaseName);
         }
 
-        public IMongoCollection<T> GetCollection()
-        {
-            var db = new MongoClient(_mongoDbSettings.ConnectionString).GetDatabase(_mongoDbSettings.DatabaseName);
-
+        public IMongoCollection<T> GetDefaultCollection()
+        {                        
             return db.GetCollection<T>(typeof(T).Name);
         }
 
         public IEnumerable<T> Listar(string id) //where T : DomainBase
         {
-            return id is null ? GetCollection().Find(_ => true).ToList() :
-                                GetCollection().Find(x => x._id == new ObjectId(id)).ToList();
+            return id is null ? GetDefaultCollection().Find(_ => true).ToList() :
+                                GetDefaultCollection().Find(x => x._id == new ObjectId(id)).ToList();
         }
 
         public void Gravar(T obj)
         {
-            GetCollection().InsertOne(obj);
+            GetDefaultCollection().InsertOne(obj);
         }
 
         public UpdateResult Atualizar(string id, UpdateDefinition<T> update)
         {
-            return GetCollection().UpdateOne(x => x._id == new ObjectId(id), update);
+            return GetDefaultCollection().UpdateOne(x => x._id == new ObjectId(id), update);
         }
 
         public void Deletar(string id)
         {
-            GetCollection().DeleteOne(x => x._id == new ObjectId(id));
+            GetDefaultCollection().DeleteOne(x => x._id == new ObjectId(id));
         }
 
     }
