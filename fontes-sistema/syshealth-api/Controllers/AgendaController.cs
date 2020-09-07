@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using syshealth_api.Core;
 using syshealth_api.Data;
 using syshealth_api.Domain;
 
@@ -13,7 +14,7 @@ namespace syshealth_api.Controllers
 {    
     [ApiController]
     [Route("[controller]")]
-    public class AgendaController : ParentController<Agenda>
+    public class AgendaController : ParentController<Agenda, AgendaAction>
     {
         public AgendaController(ILogger<AgendaController> logger, IMongoDbSettings mongoDbSettings) :
             base(logger, mongoDbSettings)
@@ -26,28 +27,56 @@ namespace syshealth_api.Controllers
         [Route("/agenda")]
         public IEnumerable<Agenda> Get(string id)
         {
-            return Listar(id);
+            return this.Action.Listar(id);
+        }
+
+        [HttpGet]
+        [Route("/agenda/horarios")]
+        public IEnumerable<Horario> GetHorarios()
+        {
+            return this.Action.GetCollection<Horario>().Find(_ => true).ToList();
+        }
+
+        [HttpGet]
+        [Route("/agenda/tiposExames")]
+        public IEnumerable<TipoExame> GetTiposExames()
+        {
+            return this.Action.GetCollection<TipoExame>().Find(_ => true).ToList();
+        }
+
+        [HttpGet]
+        [Route("/agenda/medicos")]
+        public IEnumerable<Medico> GetMedicos()
+        {
+            return this.Action.GetCollection<Medico>().Find(_ => true).ToList();
+        }
+
+        [HttpGet]
+        [Route("/agenda/medico/especialidades")]
+        public IEnumerable<Especialidade> GetEspecialidades()
+        {
+            return this.Action.GetCollection<Especialidade>().Find(_ => true).ToList();
         }
 
         [HttpPost]
         public void Post([FromBody] Agenda objAgenda)
         {
-            Gravar(objAgenda);
+            this.Action.Gravar(objAgenda);
         }
 
-        [HttpPut("{id}")]
-        public void Update(string id, [FromBody] Agenda objAgenda)
+        [HttpPut("{codigo}")]
+        public void Update(double codigo, [FromBody] Agenda objAgenda)
         {
             var update = Builders<Agenda>.Update
                 .Set("xxxxxxxx", 123);
 
-            Atualizar(id, update);
+            this.Action.Atualizar(codigo, update);
         }
 
         [HttpDelete("{id}")]
         public void Delete(string id)
         {
-            Deletar(id);
+            this.Action.Deletar(id);
         }
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.WebEncoders.Testing;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using syshealth_api.Core;
 using syshealth_api.Data;
 using syshealth_api.Domain;
 
@@ -15,7 +16,7 @@ namespace syshealth_api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsuarioController : ParentController<Usuario>
+    public class UsuarioController : ParentController<Usuario, UsuarioAction>
     {
         public UsuarioController(ILogger<UsuarioController> logger, IMongoDbSettings mongoDbSettings) :
             base(logger, mongoDbSettings)
@@ -28,17 +29,24 @@ namespace syshealth_api.Controllers
         [Route("/Usuario")]
         public IEnumerable<Usuario> Get(string id)
         {
-            return Listar(id);
+            return this.Action.Listar(id);
+        }
+
+        [HttpGet]
+        [Route("/Usuario/EstadoCivil")]
+        public IEnumerable<EstadoCivil> GetListaEstadoCivil()
+        {
+            return this.Action.GetCollection<EstadoCivil>().Find(_ => true).ToList();
         }
 
         [HttpPost]
         public void Post([FromBody] Usuario objUsuario)
         {
-            Gravar(objUsuario);
+            this.Action.Gravar(objUsuario);
         }
 
-        [HttpPut("{id}")]
-        public void Update(string id, [FromBody] Usuario objUsuario)
+        [HttpPut("{codigo}")]
+        public void Update(double codigo, [FromBody] Usuario objUsuario)
         {
             var update = Builders<Usuario>.Update
                 .Set("IdPerfil", objUsuario.CodigoPerfil)
@@ -49,13 +57,13 @@ namespace syshealth_api.Controllers
                 .Set("NumeroMatricula", objUsuario.NumeroMatricula)
                 .Set("Funcionario", objUsuario.Funcionario);
 
-            Atualizar(id, update);
+            this.Action.Atualizar(codigo, update);
         }
 
         [HttpDelete("{id}")]
         public void Delete(string id)
         {
-            Deletar(id);
+            this.Action.Deletar(id);
         }
     }
 }

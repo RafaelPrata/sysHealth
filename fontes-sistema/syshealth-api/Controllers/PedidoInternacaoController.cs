@@ -6,14 +6,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using syshealth_api.Core;
 using syshealth_api.Data;
+using syshealth_api.DataTransferObjects;
 using syshealth_api.Domain;
+using syshealth_api.Enums;
 
 namespace syshealth_api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PedidoInternacaoController : ParentController<PedidoInternacao>
+    public class PedidoInternacaoController : ParentController<PedidoInternacao, PedidoInternacaoAction>
     {
         public PedidoInternacaoController(ILogger<PedidoInternacaoController> logger, IMongoDbSettings mongoDbSettings) :
             base(logger, mongoDbSettings)
@@ -26,42 +29,47 @@ namespace syshealth_api.Controllers
         [Route("/PedidoInternacao")]
         public IEnumerable<PedidoInternacao> Get(string id)
         {
-            return Listar(id);
+            return this.Action.Listar(id);
+        }
+
+        [HttpGet]
+        [Route("/PedidoInternacao/Status")]
+        public IEnumerable<StatusPedidoInternacao> GetListaStatusPedidoInternacao()
+        {
+            return this.Action.GetCollection<StatusPedidoInternacao>().Find(_ => true).ToList();
         }
 
         [HttpPost]
-        public void Post([FromBody] PedidoInternacao objPedidoInternacao)
+        public void Post([FromBody] PedidoInternacaoDTO objPedidoInternacao)
         {
-            var filterLeito = Builders<Leito>.Filter.And("{CodigoStatusLeito: 2}", "{CodigoTipoLeito: 11}");
-            var updateLeito = Builders<Leito>.Update.Set("CodigoStatusLeito", 1);
-
-            var leitoDisponivel = db.GetCollection<Leito>(typeof(Leito).Name).FindOneAndUpdate(filterLeito, updateLeito);
-
-            if(leitoDisponivel != null)
-            {
-                objPedidoInternacao.CodigoLeito = leitoDisponivel.Codigo;
-            }
-            else
-            {
-                objPedidoInternacao.CodigoStatusPedidoInternacao = 1;
-            }
-            
-            Gravar(objPedidoInternacao);
+            Action.GravarPedidoInternacao(objPedidoInternacao);
         }
 
         [HttpPut("{id}")]
-        public void Update(string id, [FromBody] PedidoInternacao objPedidoInternacao)
+        public void Update(double codigo, [FromBody] PedidoInternacao objPedidoInternacao)
         {
             var update = Builders<PedidoInternacao>.Update
                 .Set("xxxxxxxx", 123);
 
-            Atualizar(id, update);
+            this.Action.Atualizar(codigo, update);
+        }
+
+
+        [HttpPut()]
+        [Route("/PedidoInternacao/{codigo}/AltaPaciente")]
+        public void AltaPaciente(double codigo)
+        {
+            var update = Builders<PedidoInternacao>.Update
+                .Set("DataAlta", DateTime.Now)
+                .Set("CodigoStatusPedidoInternacao", (int)EnStatusPedidoInternacao.Concluido);
+
+            this.Action.Atualizar(codigo, update);
         }
 
         [HttpDelete("{id}")]
         public void Delete(string id)
         {
-            Deletar(id);
+            this.Action.Deletar(id);
         }
     }
 }

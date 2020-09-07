@@ -16,6 +16,8 @@ namespace syshealth_api.Domain
         public DateTime? DataInternacao { get; set; }
         public DateTime? DataAlta { get; set; }
         public double? CodigoStatusPedidoInternacao { get; set; }
-        public double CodigoUsuario { get; set; }        
+        public double CodigoUsuario { get; set; }
+
+        public double CodigoTipoLeito { get; set; }
     }
 }

@@ -1,3 +1,20 @@
+////////////////Estado Civil/////////////////////////////////////
+db.getCollection('EstadoCivil').insertMany([{'Descricao':'Solteiro(a)', 'Codigo':1},
+                                                       {'Descricao':'Casado(a)', 'Codigo':2},
+                                                       {'Descricao':'Divorciado(a)', 'Codigo':3},
+                                                       {'Descricao':'Viúvo(a)', 'Codigo':4},
+                                                       {'Descricao':'Separado(a)', 'Codigo':5},
+                                            ]);
+
+////////////////Classificação/////////////////////////////////////
+db.getCollection('Classificacao').insertMany([{'Descricao':'Vermelho', 'Codigo':1},
+                                                       {'Descricao':'Laranja', 'Codigo':2},
+                                                       {'Descricao':'Amarelo', 'Codigo':3},
+                                                       {'Descricao':'Verde', 'Codigo':4},
+                                                       {'Descricao':'Azul', 'Codigo':5},
+                                            ]);
+
+
 ////////////////StatusLeito/////////////////////////////////////
 db.getCollection('StatusPedidoInternacao').insertMany([{'Descricao':'Aberto', 'Codigo':1},
                                                        {'Descricao':'Em atendimento', 'Codigo':2},

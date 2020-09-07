@@ -56,4 +56,3 @@ C:\Users\Rafael\source\repos\sysHealth\fontes-sistema\syshealth-api\obj\Debug\ne
 C:\Users\Rafael\source\repos\sysHealth\fontes-sistema\syshealth-api\obj\Debug\netcoreapp3.1\staticwebassets\syshealth-api.StaticWebAssets.Manifest.cache
 C:\Users\Rafael\source\repos\sysHealth\fontes-sistema\syshealth-api\obj\Debug\netcoreapp3.1\staticwebassets\syshealth-api.StaticWebAssets.xml
 C:\Users\Rafael\source\repos\sysHealth\fontes-sistema\syshealth-api\obj\Debug\netcoreapp3.1\syshealth-api.genruntimeconfig.cache
-C:\Users\Rafael\source\repos\sysHealth\fontes-sistema\syshealth-api\obj\Debug\netcoreapp3.1\syshealth-api.csprojAssemblyReference.cache

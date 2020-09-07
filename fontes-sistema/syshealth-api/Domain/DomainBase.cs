@@ -10,6 +10,6 @@ namespace syshealth_api.Domain
     {
         public ObjectId _id { get; set; }
 
-        public int Codigo { get; set; }
+        public double Codigo { get; set; }
     }
 }

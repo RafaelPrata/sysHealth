@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using syshealth_api.Core;
 using syshealth_api.Data;
 using syshealth_api.Domain;
 
@@ -12,7 +13,7 @@ namespace syshealth_api.Controllers
 {    
     [ApiController]
     [Route("[controller]")]
-    public class LeitoController : ParentController<Leito>
+    public class LeitoController : ParentController<Leito, LeitoAction>
     {
         public LeitoController(ILogger<LeitoController> logger, IMongoDbSettings mongoDbSettings) :
             base(logger, mongoDbSettings)
@@ -25,28 +26,42 @@ namespace syshealth_api.Controllers
         [Route("/Leito")]
         public IEnumerable<Leito> Get(string id)
         {
-            return Listar(id);
+            return this.Action.Listar(id);
+        }
+
+        [HttpGet]
+        [Route("/Leito/StatusLeito")]
+        public IEnumerable<StatusLeito> GetStatusLeito()
+        {
+            return this.Action.GetCollection<StatusLeito>().Find(_ => true).ToList();
+        }
+
+        [HttpGet]
+        [Route("/Leito/TipoLeito")]
+        public IEnumerable<TipoLeito> GetTipoLeito()
+        {
+            return this.Action.GetCollection<TipoLeito>().Find(_ => true).ToList();
         }
 
         [HttpPost]
         public void Post([FromBody] Leito objLeito)
         {
-            Gravar(objLeito);
+            this.Action.Gravar(objLeito);
         }
 
-        [HttpPut("{id}")]
-        public void Update(string id, [FromBody] Leito objLeito)
+        [HttpPut("{codigo}")]
+        public void Update(double codigo, [FromBody] Leito objLeito)
         {
             var update = Builders<Leito>.Update
                 .Set("xxxxxxxx", 123);
 
-            Atualizar(id, update);
+            this.Action.Atualizar(codigo, update);
         }
 
         [HttpDelete("{id}")]
         public void Delete(string id)
         {
-            Deletar(id);
+            this.Action.Deletar(id);
         }
     }
 }

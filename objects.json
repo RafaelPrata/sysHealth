@@ -1,0 +1,26 @@
+{
+  "nomeMedicoSolicitante": null,
+  "classificacao": 0.0,
+  "motivo": null,
+  "codigoUsuario": 0.0,
+  "codigoTipoLeito": 0.0,
+  "paciente": {
+                "nome": null,
+                "sexo": null,
+                "dataNasicmento": "0001-01-01T00:00:00",
+                "estadoCivil": null,
+                "cpf": null,
+                "rg": null,
+                "numeroSus": null,
+                "nomeMae": null,
+                "endereco": {
+                                "cep": null,
+                                "logradouro": null,
+                                "numero": 0.0,
+                                "complemento": null,
+                                "bairro": null,
+                                "cidade": null,
+                                "uf": null
+                            }
+            }
+}
