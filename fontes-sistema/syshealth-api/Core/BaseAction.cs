@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 
 namespace syshealth_api.Core
 {
-    public class BaseAction<T> where T : DomainBase
-    {        
+    public class BaseAction
+    {
         private IMongoDbSettings _mongoDbSettings;
 
         protected IMongoDatabase db;
@@ -24,35 +24,40 @@ namespace syshealth_api.Core
             db = new MongoClient(_mongoDbSettings.ConnectionString).GetDatabase(_mongoDbSettings.DatabaseName);
         }
 
-        public IMongoCollection<T> GetDefaultCollection()
+        public IMongoCollection<T> GetCollection<T>() where T : DomainBase
         {
             return db.GetCollection<T>(typeof(T).Name);
         }
 
-        public IMongoCollection<EspecificType> GetCollection<EspecificType>() where EspecificType : DomainBase
+        public IEnumerable<T> Listar<T>(double? codigo = null) where T : DomainBase
         {
-            return db.GetCollection<EspecificType>(typeof(EspecificType).Name);
+            var collection = db.GetCollection<T>(typeof(T).Name);
+
+            return codigo is null ? collection.Find(_ => true).ToList() :
+                                    collection.Find(x => x.Codigo == codigo).ToList();
         }
 
-        public IEnumerable<T> Listar(string id = null)
+        public void Gravar<T>(T obj) where T : DomainBase
         {
-            return id is null ? GetDefaultCollection().Find(_ => true).ToList() :
-                                GetDefaultCollection().Find(x => x._id == new ObjectId(id)).ToList();
+            var collection = db.GetCollection<T>(typeof(T).Name);
+
+            obj.Codigo = collection.EstimatedDocumentCount() + 1;
+
+            collection.InsertOne(obj);
         }
 
-        public void Gravar(T obj)
+        public UpdateResult Atualizar<T>(double codigo, UpdateDefinition<T> update) where T : DomainBase
         {
-            GetDefaultCollection().InsertOne(obj);
+            var collection = db.GetCollection<T>(typeof(T).Name);
+
+            return collection.UpdateOne(x => x.Codigo == codigo, update);
         }
 
-        public UpdateResult Atualizar(double codigo, UpdateDefinition<T> update)
+        public void Deletar<T>(double codigo) where T : DomainBase
         {
-            return GetDefaultCollection().UpdateOne(x => x.Codigo == codigo, update);
-        }
+            var collection = db.GetCollection<T>(typeof(T).Name);
 
-        public void Deletar(string id)
-        {
-            GetDefaultCollection().DeleteOne(x => x._id == new ObjectId(id));
+            collection.DeleteOne(x => x.Codigo == codigo);
         }
 
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace syshealth_api.Core
 {
-    public class LeitoAction : BaseAction<Leito>
+    public class LeitoAction : BaseAction
     {
         public LeitoAction(IMongoDbSettings mongoDbSettings) : base(mongoDbSettings)
         {

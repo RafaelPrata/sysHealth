@@ -22,11 +22,11 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("{codigo}")]
         [Route("/Leito")]
-        public IEnumerable<Leito> Get(string id)
+        public IEnumerable<Leito> Get(double? codigo)
         {
-            return this.Action.Listar(id);
+            return this.Action.Listar<Leito>(codigo);
         }
 
         [HttpGet]
@@ -53,15 +53,18 @@ namespace syshealth_api.Controllers
         public void Update(double codigo, [FromBody] Leito objLeito)
         {
             var update = Builders<Leito>.Update
-                .Set("xxxxxxxx", 123);
+                                            .Set("Local", objLeito.Local)
+                                            .Set("CodigoStatusLeito", objLeito.CodigoStatusLeito)
+                                            .Set("CodigoTipoLeito", objLeito.CodigoTipoLeito)
+                                            .Set("CodigoPaciente", objLeito.CodigoPaciente);
 
             this.Action.Atualizar(codigo, update);
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(string id)
+        [HttpDelete("{codigo}")]
+        public void Delete(double codigo)
         {
-            this.Action.Deletar(id);
+            this.Action.Deletar<Leito>(codigo);
         }
     }
 }

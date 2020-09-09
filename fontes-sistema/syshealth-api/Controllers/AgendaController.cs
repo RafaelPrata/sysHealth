@@ -23,11 +23,11 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("{codigo}")]
         [Route("/agenda")]
-        public IEnumerable<Agenda> Get(string id)
+        public IEnumerable<Agenda> Get(double? codigo)
         {
-            return this.Action.Listar(id);
+            return this.Action.Listar<Agenda>(codigo);
         }
 
         [HttpGet]
@@ -59,9 +59,35 @@ namespace syshealth_api.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] Agenda objAgenda)
+        [Route("/agenda/consulta")]
+        public void AgendarConsultaMedica([FromBody] Agenda objAgenda)
         {
-            this.Action.Gravar(objAgenda);
+            var agendaDisponivel = Action.VerificarHorarioDisponivelConsulta(objAgenda.Data, 
+                                                                             objAgenda.CodigoHorario, 
+                                                                             objAgenda.CodigoMedico);
+
+            if (agendaDisponivel)
+                Action.Gravar(objAgenda);
+            else
+            {
+                NotFound();
+            }
+        }
+
+        [HttpPost]
+        [Route("/agenda/exame")]
+        public void AgendarExameMedico([FromBody] Agenda objAgenda)
+        {
+            var agendaDisponivel = Action.VerificarHorarioDisponivelExame(objAgenda.Data,
+                                                                          objAgenda.CodigoHorario,
+                                                                          objAgenda.CodigoTipoExame);
+
+            if (agendaDisponivel)
+                Action.Gravar(objAgenda);
+            else
+            {
+                NotFound();
+            }
         }
 
         [HttpPut("{codigo}")]
@@ -73,10 +99,10 @@ namespace syshealth_api.Controllers
             this.Action.Atualizar(codigo, update);
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(string id)
+        [HttpDelete("{codigo}")]
+        public void Delete(double codigo)
         {
-            this.Action.Deletar(id);
+            this.Action.Deletar<Agenda>(codigo);
         }
     }
 }

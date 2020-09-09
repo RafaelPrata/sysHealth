@@ -1,4 +1,5 @@
-﻿using syshealth_api.Data;
+﻿using MongoDB.Driver;
+using syshealth_api.Data;
 using syshealth_api.Domain;
 using System;
 using System.Collections.Generic;
@@ -7,11 +8,18 @@ using System.Threading.Tasks;
 
 namespace syshealth_api.Core
 {
-    public class UsuarioAction : BaseAction<Usuario>
+    public class UsuarioAction : BaseAction
     {
         public UsuarioAction(IMongoDbSettings mongoDbSettings) : base(mongoDbSettings)
         {
 
+        }
+
+        public Usuario BuscarUsuario(string login, string senha)
+        {
+            var collection = db.GetCollection<Usuario>(typeof(Usuario).Name);
+
+            return collection.Find(x => x.Login == login && x.Senha == senha).FirstOrDefault();
         }
     }
 }

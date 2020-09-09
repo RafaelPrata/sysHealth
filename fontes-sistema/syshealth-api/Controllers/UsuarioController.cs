@@ -25,11 +25,20 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
-        [Route("/Usuario")]
-        public IEnumerable<Usuario> Get(string id)
+        [Route("/Usuario/autenticar/{login};{senha}")]
+        public Usuario Autenticar(string login, string senha)
         {
-            return this.Action.Listar(id);
+            var objUsuario = Action.BuscarUsuario(login, senha);
+
+            return objUsuario;
+        }
+
+        [HttpGet]
+        [Route("{codigo}")]
+        [Route("/Usuario")]
+        public IEnumerable<Usuario> Get(double? codigo)
+        {
+            return Action.Listar<Usuario>(codigo);
         }
 
         [HttpGet]
@@ -60,10 +69,10 @@ namespace syshealth_api.Controllers
             this.Action.Atualizar(codigo, update);
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(string id)
+        [HttpDelete("{codigo}")]
+        public void Delete(double codigo)
         {
-            this.Action.Deletar(id);
+            this.Action.Deletar<Usuario>(codigo);
         }
     }
 }

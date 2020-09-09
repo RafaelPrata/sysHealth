@@ -25,11 +25,11 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("{codigo}")]
         [Route("/PedidoInternacao")]
-        public IEnumerable<PedidoInternacao> Get(string id)
+        public IEnumerable<PedidoInternacao> Get(double? codigo)
         {
-            return this.Action.Listar(id);
+            return this.Action.Listar<PedidoInternacao>(codigo);
         }
 
         [HttpGet]
@@ -66,10 +66,10 @@ namespace syshealth_api.Controllers
             this.Action.Atualizar(codigo, update);
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(string id)
+        [HttpDelete("{codigo}")]
+        public void Delete(double codigo)
         {
-            this.Action.Deletar(id);
+            this.Action.Deletar<PedidoInternacao>(codigo);
         }
     }
 }

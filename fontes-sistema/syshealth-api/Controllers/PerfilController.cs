@@ -22,11 +22,11 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("{codigo}")]
         [Route("/Perfil")]
-        public IEnumerable<Perfil> Get(string id)
+        public IEnumerable<Perfil> Get(double? codigo)
         {
-            return this.Action.Listar(id);
+            return this.Action.Listar<Perfil>(codigo);
         }
 
         [HttpPost]
@@ -44,10 +44,10 @@ namespace syshealth_api.Controllers
             this.Action.Atualizar(codigo, update);
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(string id)
+        [HttpDelete("{codigo}")]
+        public void Delete(double codigo)
         {
-            this.Action.Deletar(id);
+            this.Action.Deletar<Perfil>(codigo);
         }
     }
 }

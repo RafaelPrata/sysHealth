@@ -15,7 +15,5 @@ namespace syshealth_api.Domain
         public double CodigoStatusLeito { get; set; }
 
         public double CodigoTipoLeito { get; set; }
-
-        public double CodigoPaciente { get; set; }
     }
 }

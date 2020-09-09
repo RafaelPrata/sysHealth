@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace syshealth_api.Core
 {
-    public class PerfilAction : BaseAction<Perfil>
+    public class PerfilAction : BaseAction
     {
         public PerfilAction(IMongoDbSettings mongoDbSettings) : base(mongoDbSettings)
         {

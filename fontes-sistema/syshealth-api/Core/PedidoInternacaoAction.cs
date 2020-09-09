@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace syshealth_api.Core
 {
-    public class PedidoInternacaoAction : BaseAction<PedidoInternacao>
+    public class PedidoInternacaoAction : BaseAction
     {
         public PedidoInternacaoAction(IMongoDbSettings mongoDbSettings) : base(mongoDbSettings)
         {
