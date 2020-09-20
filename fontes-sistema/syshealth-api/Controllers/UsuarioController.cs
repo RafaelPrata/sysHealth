@@ -58,7 +58,7 @@ namespace syshealth_api.Controllers
         public void Update(double codigo, [FromBody] Usuario objUsuario)
         {
             var update = Builders<Usuario>.Update
-                .Set("IdPerfil", objUsuario.CodigoPerfil)
+                .Set("CodigoPerfil", objUsuario.CodigoPerfil)
                 .Set("Nome", objUsuario.Nome)
                 .Set("Login", objUsuario.Login)
                 .Set("Senha", objUsuario.Senha)

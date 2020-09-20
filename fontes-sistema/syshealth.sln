@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "syshealth-api", "syshealth-api\syshealth-api.csproj", "{B6BC8FBD-A5CD-4235-A467-CBFE3858BDED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "syshealth-app", "syshealth-app\syshealth-app.csproj", "{7EA3B2DE-F752-4861-A3F7-2F00FF0839FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "app", "app\app.csproj", "{EDCE5747-F846-4907-A6DB-896C7DF0E864}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{B6BC8FBD-A5CD-4235-A467-CBFE3858BDED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6BC8FBD-A5CD-4235-A467-CBFE3858BDED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6BC8FBD-A5CD-4235-A467-CBFE3858BDED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7EA3B2DE-F752-4861-A3F7-2F00FF0839FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7EA3B2DE-F752-4861-A3F7-2F00FF0839FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7EA3B2DE-F752-4861-A3F7-2F00FF0839FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7EA3B2DE-F752-4861-A3F7-2F00FF0839FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDCE5747-F846-4907-A6DB-896C7DF0E864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDCE5747-F846-4907-A6DB-896C7DF0E864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDCE5747-F846-4907-A6DB-896C7DF0E864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDCE5747-F846-4907-A6DB-896C7DF0E864}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

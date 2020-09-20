@@ -1,8 +1,10 @@
+using MongoDB.Bson.Serialization.Attributes;
 using syshealth_api.Domain;
 using System;
 
 namespace syshealth_api.Domain
 {
+    [BsonIgnoreExtraElements]
     public class Usuario : DomainBase
     {
         public double CodigoPerfil { get; set; }

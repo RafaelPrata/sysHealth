@@ -8,8 +8,6 @@ namespace syshealth_api.Domain
 {
     public class DomainBase
     {
-        public ObjectId _id { get; set; }
-
         public double Codigo { get; set; }
     }
 }

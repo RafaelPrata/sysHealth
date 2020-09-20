@@ -1,5 +1,8 @@
-﻿namespace syshealth_api.Domain
+﻿using MongoDB.Bson.Serialization.Attributes;
+
+namespace syshealth_api.Domain
 {
+    [BsonIgnoreExtraElements]
     public class EnderecoPaciente
     {
         public string Cep { get; set; }

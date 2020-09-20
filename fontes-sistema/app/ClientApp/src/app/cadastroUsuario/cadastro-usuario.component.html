@@ -1,0 +1,125 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+        <div *ngIf="this.modoConsulta" class="col-md-12">
+          <div class="card">
+              <div class="card-header card-header-danger">
+                  <h4 class="card-title ">Usuários</h4>
+                  <p class="card-category">Lista de usuários cadastrados</p>
+              </div>
+              <div class="card-body">
+                <button type="button" class="btn btn-sm" style="background-color: cornflowerblue;" title="Cadastrar novo usuário" (click)="exibirFormularioCadastro()">                    
+                  <i class="fa fa-plus"> Cadastrar</i>
+                </button>                
+                  <div class="table-responsive">
+                      <table class="table">
+                          <thead class=" text-primary">
+                              <th>
+                                  Nome
+                              </th>
+                              <th>
+                                  Login
+                              </th>
+                              <th>
+                                  Senha
+                              </th>
+                              <th>
+                                  Nº Matrícula
+                              </th>
+                              <th>
+                                  Nº SUS
+                              </th>
+                              <th>
+
+                              </th>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let item of listaUsuarios">
+                                  <td>
+                                      {{item.nome}}
+                                  </td>
+                                  <td>
+                                    {{item.login}}
+                                  </td>
+                                  <td>
+                                    {{item.senha}}
+                                  </td>
+                                  <td>
+                                    {{item.numeroMatricula}}
+                                  </td>
+                                  <td>
+                                    {{item.numeroSUS}}
+                                  </td>
+                                  <td>
+                                    <button type="button" class="btn btn-sm" title="Editar" (click)="exibirFormularioCadastro(item.codigo)">
+                                      <i class="fa fa-edit fa-5x" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm" title="Excluir" (click)="excluirCadastro(item.codigo)">
+                                      <i class="fa fa-remove fa-5x" aria-hidden="true"></i>
+                                    </button>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>        
+      <div *ngIf="!this.modoConsulta" class="col-md-10">
+          <div class="card">
+              <div class="card-header card-header-danger">
+                  <h4 class="card-title">Usuário</h4>
+                  <p class="card-category">Dados do usuário</p>
+              </div>
+              <div class="card-body">
+                  <form>
+                      <div class="row">
+                          <div class="col-md-10">
+                            <mat-form-field class="example-full-width">
+                              <input name="txtNome" matInput placeholder="Nome" type="text" [(ngModel)]="usuario.nome" >
+                            </mat-form-field>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-5">
+                            <mat-form-field class="example-full-width">
+                              <input name="txtLogin" matInput placeholder="Login" [(ngModel)]="usuario.login">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-5">
+                            <mat-form-field class="example-full-width">
+                              <input name="txtSenha" matInput placeholder="Senha" type="text" [(ngModel)]="usuario.senha">
+                            </mat-form-field>
+                        </div>
+                    </div>                          
+                      <div class="row">
+                          <div class="col-md-10">
+                            <mat-form-field class="example-full-width">
+                              <input name="txtNumeroMatricula" matInput placeholder="Número da matrícula" type="text" [(ngModel)]="usuario.numeroMatricula">
+                            </mat-form-field>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-10">
+                            <mat-form-field class="example-full-width">
+                              <input name="txtNumeroSus" matInput placeholder="Número SUS" type="text" [(ngModel)]="usuario.numeroSUS">
+                            </mat-form-field>
+                          </div>                             
+                      </div>
+                      <div class="row">
+                        <div class="col-md-10">
+                            <select name="selPerfil" class="form-control" (ngModelChange)="selectPerfilChange($event)" [(ngModel)]="usuario.codigoPerfil">
+                              <option *ngFor="let item of listaPerfil" [selected]="item.codigo == usuario.codigoPerfil ? 'selected' : ''" [value]="item.codigo">{{item.descricao}}</option>
+                            </select>
+                        </div>                             
+                      </div>                          
+                      <button mat-raised-button type="button" (click)="cadastrar()" class="btn btn-danger pull-left">Cadastrar</button>
+                      <button mat-raised-button type="button" (click)="this.modoConsulta = true" class="btn btn-danger pull-left">Voltar</button>
+                      <div class="clearfix"></div>
+                  </form>
+              </div>
+          </div>
+      </div>          
+  </div>
+  </div>
+</div>

@@ -55,8 +55,7 @@ namespace syshealth_api.Controllers
             var update = Builders<Leito>.Update
                                             .Set("Local", objLeito.Local)
                                             .Set("CodigoStatusLeito", objLeito.CodigoStatusLeito)
-                                            .Set("CodigoTipoLeito", objLeito.CodigoTipoLeito)
-                                            .Set("CodigoPaciente", objLeito.CodigoPaciente);
+                                            .Set("CodigoTipoLeito", objLeito.CodigoTipoLeito);
 
             this.Action.Atualizar(codigo, update);
         }

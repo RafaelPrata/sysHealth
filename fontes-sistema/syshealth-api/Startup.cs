@@ -29,9 +29,16 @@ namespace syshealth_api
         {
             services.Configure<MongoDbSettings>(Configuration.GetSection("DbConnection"));
 
+            services.Configure<IISServerOptions>(o =>
+            {
+                o.AutomaticAuthentication = false;
+            });
+
             services.AddSingleton<IMongoDbSettings>(sp => sp.GetRequiredService<IOptions<MongoDbSettings>>().Value);
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +54,12 @@ namespace syshealth_api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(options => {
+                options.AllowAnyHeader();
+                options.AllowAnyOrigin();
+                options.AllowAnyMethod();
+            });
 
             app.UseEndpoints(endpoints =>
             {
