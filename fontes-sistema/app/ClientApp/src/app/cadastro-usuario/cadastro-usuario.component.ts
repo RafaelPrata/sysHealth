@@ -1,6 +1,6 @@
-import { Perfil } from './../models/Perfil';
-import { ApiService } from './../services/api.service';
-import { Usuario } from './../models/Usuario';
+import { Perfil } from '../models/Perfil';
+import { ApiService } from '../services/api.service';
+import { Usuario } from '../models/Usuario';
 import { Component, OnInit } from '@angular/core';
 // import {NgForm} from '@angular/forms';
 

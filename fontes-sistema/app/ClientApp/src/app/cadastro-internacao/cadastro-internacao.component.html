@@ -1,0 +1,61 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">      
+      <div class="col-md-10">
+          <div class="card">
+              <div class="card-header card-header-danger">
+                  <h4 class="card-title">Pedidos de Internação</h4>
+                  <p class="card-category">Dados do pedido de itnernação</p>
+              </div>
+              <div class="card-body">
+                  <form>
+                      <div class="row">
+                          <div class="col-md-10">
+                            <mat-form-field class="example-full-width">
+                              <input name="txtNome" matInput placeholder="Nome" type="text">
+                            </mat-form-field>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-5">
+                            <mat-form-field class="example-full-width">
+                              <input name="txtLogin" matInput placeholder="Login">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-5">
+                            <mat-form-field class="example-full-width">
+                              <input name="txtSenha" matInput placeholder="Senha" type="text">
+                            </mat-form-field>
+                        </div>
+                    </div>                          
+                      <div class="row">
+                          <div class="col-md-10">
+                            <mat-form-field class="example-full-width">
+                              <input name="txtNumeroMatricula" matInput placeholder="Número da matrícula" type="text">
+                            </mat-form-field>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-10">
+                            <mat-form-field class="example-full-width">
+                              <input name="txtNumeroSus" matInput placeholder="Número SUS" type="text">
+                            </mat-form-field>
+                          </div>                             
+                      </div>
+                      <!-- <div class="row">
+                        <div class="col-md-10">
+                            <select name="selPerfil" class="form-control" (ngModelChange)="selectPerfilChange($event)" [(ngModel)]="usuario.codigoPerfil">
+                              <option *ngFor="let item of listaPerfil" [selected]="item.codigo == usuario.codigoPerfil ? 'selected' : ''" [value]="item.codigo">{{item.descricao}}</option>
+                            </select>
+                        </div>                             
+                      </div>                           -->
+                      <button mat-raised-button type="button" (click)="cadastrar()" class="btn btn-danger pull-left">Cadastrar</button>
+                      <button mat-raised-button type="button" class="btn btn-danger pull-left">Voltar</button>
+                      <div class="clearfix"></div>
+                  </form>
+              </div>
+          </div>
+      </div>          
+  </div>
+  </div>
+</div>

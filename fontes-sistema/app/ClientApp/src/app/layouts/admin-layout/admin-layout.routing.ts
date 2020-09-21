@@ -1,12 +1,11 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { CadastroUsuarioComponent } from '../../cadastroUsuario/cadastro-usuario.component';
-import { TypographyComponent } from '../../typography/typography.component';
-import { IconsComponent } from '../../icons/icons.component';
-import { MapsComponent } from '../../maps/maps.component';
-import { NotificationsComponent } from '../../notifications/notifications.component';
-import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import { CadastroUsuarioComponent } from '../../cadastro-usuario/cadastro-usuario.component';
+import { CadastroInternacaoComponent } from '../../cadastro-internacao/cadastro-internacao.component';
+import { ConsultaMedicaComponent } from 'app/consulta-medica/consulta-medica.component';
+import { ExameMedicoComponent } from 'app/exame-medico/exame-medico.component';
+import { CentralLeitosComponent } from 'app/central-leitos/central-leitos.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -52,10 +51,9 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // }
     { path: 'dashboard',      component: DashboardComponent },
-    { path: 'cadastroUsuario', component: CadastroUsuarioComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent },
+    { path: 'cadastro-usuario', component: CadastroUsuarioComponent },
+    { path: 'cadastro-internacao', component: CadastroInternacaoComponent },
+    { path: 'consulta-medica', component: ConsultaMedicaComponent },
+    { path: 'exame-medico', component: ExameMedicoComponent },
+    { path: 'central-leitos', component: CentralLeitosComponent },
 ];

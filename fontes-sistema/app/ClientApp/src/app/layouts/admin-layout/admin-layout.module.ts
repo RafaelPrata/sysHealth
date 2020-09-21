@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { CadastroUsuarioComponent } from '../../cadastroUsuario/cadastro-usuario.component';
+import { CadastroUsuarioComponent } from '../../cadastro-usuario/cadastro-usuario.component';
+import { CadastroInternacaoComponent } from '../../cadastro-internacao/cadastro-internacao.component';
 import { TypographyComponent } from '../../typography/typography.component';
 import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
@@ -33,6 +34,7 @@ import {MatSelectModule} from '@angular/material/select';
   declarations: [
     DashboardComponent,
     CadastroUsuarioComponent,
+    CadastroInternacaoComponent,
     TypographyComponent,
     IconsComponent,
     MapsComponent,
