@@ -1,1 +1,36 @@
-<p>exame-medico works!</p>
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">        
+      <div class="col-md-10">
+          <div class="card">
+              <div class="card-header card-header-danger">
+                  <h4 class="card-title">Agendar exame médico</h4>                  
+              </div>
+              <div class="card-body">
+                  <form>
+                      <div class="row">
+                        <!-- <div class="col-md-5">
+                          <mat-form-field appearance="fill">
+                            <mat-label>Tipo exame</mat-label>
+                            <mat-select name="selTipoExame">
+                              <mat-option *ngFor="let item of listaEspecialidade" [value]="item.codigo">{{item.descricao}}</mat-option>                              
+                            </mat-select>
+                          </mat-form-field> 
+                        </div>      -->
+                        <div class="col-md-3">
+                          <mat-form-field class="example-full-width">
+                            <input name="txtData" matInput placeholder="Data" type="date">
+                          </mat-form-field>
+                        </div>  
+                        <div class="col-md-2">
+                          <button mat-raised-button type="button" (click)="pesquisar()" class="btn btn-danger pull-left">Pesquisar</button>
+                        </div>                                              
+                      </div>                                                
+                      <div class="clearfix"></div>
+                  </form>
+              </div>
+          </div>
+      </div>          
+  </div>
+  </div>
+</div>

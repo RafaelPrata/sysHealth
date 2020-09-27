@@ -1,16 +1,46 @@
 <div class="main-content">
   <div class="container-fluid">
       <div class="row">
-        <div *ngIf="this.modoConsulta" class="col-md-12">
+        <div *ngIf="this.modoConsulta" class="col-md-10">
           <div class="card">
               <div class="card-header card-header-danger">
                   <h4 class="card-title ">Usuários</h4>
                   <p class="card-category">Lista de usuários cadastrados</p>
               </div>
               <div class="card-body">
-                <button type="button" class="btn btn-sm" style="background-color: cornflowerblue;" title="Cadastrar novo usuário" (click)="exibirFormularioCadastro()">                    
-                  <i class="fa fa-plus"> Cadastrar</i>
-                </button>                
+                <form (ngSubmit)="pesquisar($event)">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input name="txtFiltroNome" matInput placeholder="Nome" type="text" >
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field class="example-full-width">
+                      <input name="txtFiltroLogin" matInput placeholder="Login" type="text" >
+                    </mat-form-field>
+                  </div>                  
+                </div> 
+                <div class="row">
+                  <div class="col-md-3">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Perfil</mat-label>
+                      <select matNativeControl name="selFiltroPerfil">
+                        <option *ngFor="let item of dadosTela.listaPerfil" [value]="item.codigo">{{item.descricao}}</option>
+                      </select>
+                    </mat-form-field> 
+                  </div> 
+                </div>  
+                <div class="row">
+                  <div class="col-md-4">
+                    <button mat-raised-button type="submit" class="btn btn-danger pull-left">Pesquisar</button>                  
+                    <button mat-raised-button type="button" class="btn btn-danger pull-left">Limpar</button>                  
+                  </div>
+                  <div class="col-md-2">
+                    <button mat-raised-button type="button" (click)="cadastrarNovo()" class="btn btn-danger pull-left">Cadastrar Novo</button>
+                  </div>
+                </div>  
+              </form>                                                          
                   <div class="table-responsive">
                       <table class="table">
                           <thead class=" text-primary">
@@ -107,10 +137,13 @@
                           </div>                             
                       </div>
                       <div class="row">
-                        <div class="col-md-10">
-                            <select name="selPerfil" class="form-control" (ngModelChange)="selectPerfilChange($event)" [(ngModel)]="usuario.codigoPerfil">
-                              <option *ngFor="let item of listaPerfil" [selected]="item.codigo == usuario.codigoPerfil ? 'selected' : ''" [value]="item.codigo">{{item.descricao}}</option>
-                            </select>
+                        <div class="col-md-5">
+                          <mat-form-field appearance="fill">
+                            <mat-label>Perfil</mat-label>
+                            <mat-select [(ngModel)]="usuario.codigoPerfil" name="selPerfil">
+                              <mat-option *ngFor="let item of dadosTela.listaPerfil" [selected]="item.codigo == usuario.codigoPerfil ? 'selected' : ''" [value]="item.codigo">{{item.descricao}}</mat-option>                              
+                            </mat-select>
+                          </mat-form-field> 
                         </div>                             
                       </div>                          
                       <button mat-raised-button type="button" (click)="cadastrar()" class="btn btn-danger pull-left">Cadastrar</button>

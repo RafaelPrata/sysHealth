@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoaderService } from 'app/services/loader.service';
 
 @Component({
   selector: 'app-central-leitos',
@@ -7,12 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CentralLeitosComponent implements OnInit {
 
-  constructor() { }
+  constructor(private loaderservice: LoaderService) { }
 
   ngOnInit(): void {
-    
+      
+  }
 
-
+  load(){
+    this.loaderservice.display(true);
   }
 
 }

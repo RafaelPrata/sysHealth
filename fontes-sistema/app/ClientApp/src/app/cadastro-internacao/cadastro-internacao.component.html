@@ -1,61 +1,255 @@
 <div class="main-content">
   <div class="container-fluid">
-      <div class="row">      
+      <div *ngIf="modoConsulta" class="row">
+        <div class="col-md-10">
+          <div class="card">
+            <div class="card-header card-header-danger">
+                <h4 class="card-title ">Pedidos de internações</h4>
+                <p class="card-category">Lista de pedidos de internações</p>
+            </div>
+            <div class="card-body">
+              <form (ngSubmit)="pesquisar($event)">
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input name="txtFiltroNumeroInternacao" matInput placeholder="Nº Internação" type="text">
+                  </mat-form-field>
+                </div>
+              </div>
+                <div class="row">
+                <div class="col-md-10">
+                  <mat-form-field class="example-full-width">
+                    <input name="txtFiltroNomePaciente" matInput placeholder="Nome do Paciente" type="text" >
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Classificação</mat-label>
+                    <select matNativeControl name="selFiltroClassificacao">
+                      <option *ngFor="let item of dadosTela.listaClassificacao" [value]="item.codigo">{{item.descricao}}</option>                              
+                    </select>
+                  </mat-form-field> 
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Status</mat-label>
+                    <select matNativeControl name="selFiltroStatus">
+                      <option *ngFor="let item of dadosTela.listaStatus" [value]="item.codigo">{{item.descricao}}</option>                              
+                    </select>
+                  </mat-form-field> 
+                </div>                 
+              </div>  
+              <div class="row">
+                <div class="col-md-4">
+                  <button mat-raised-button type="submit" class="btn btn-danger pull-left">Pesquisar</button>                  
+                  <button mat-raised-button type="button" class="btn btn-danger pull-left">Limpar</button>                  
+                </div>
+                <div class="col-md-2">
+                  <button mat-raised-button type="button" (click)="cadastrarNovo()" class="btn btn-danger pull-left">Cadastrar Novo</button>
+                </div>
+              </div> 
+            </form>
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <th>
+                                xxxxxxx
+                            </th>
+                            <th>
+                              xxxxxxx
+                            </th>
+                            <th>
+                              xxxxxxx
+                            </th>
+                            <th>
+                              xxxxxxx
+                            </th>
+                            <th>
+                              xxxxxxx
+                            </th>
+                            <th>
+                              xxxxxxx
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of listaInternacao">
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-sm" title="Editar" (click)="exibirFormularioCadastro(item.codigo)">
+                                    <i class="fa fa-edit fa-5x" aria-hidden="true"></i>
+                                  </button>
+                                  <button type="button" class="btn btn-sm" title="Excluir" (click)="excluirCadastro(item.codigo)">
+                                    <i class="fa fa-remove fa-5x" aria-hidden="true"></i>
+                                  </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>                  
+                </div>
+              </div>                     
+            </div>
+        </div>          
+        </div>
+      </div>    
+      <div *ngIf="!modoConsulta" class="row">
       <div class="col-md-10">
           <div class="card">
               <div class="card-header card-header-danger">
-                  <h4 class="card-title">Pedidos de Internação</h4>
-                  <p class="card-category">Dados do pedido de itnernação</p>
+                  <h4 class="card-title">Cadastro de Internação</h4>
+                  <p class="card-category">Dados do pedido de internação</p>
               </div>
               <div class="card-body">
                   <form>
                       <div class="row">
-                          <div class="col-md-10">
+                          <div class="col-md-9">
                             <mat-form-field class="example-full-width">
-                              <input name="txtNome" matInput placeholder="Nome" type="text">
+                              <input name="txtNome" matInput placeholder="Nome" type="text" [(ngModel)]="internacao.paciente.nome">
                             </mat-form-field>
                           </div>
-                      </div>
+                      </div>   
                       <div class="row">
-                        <div class="col-md-5">
-                            <mat-form-field class="example-full-width">
-                              <input name="txtLogin" matInput placeholder="Login">
-                            </mat-form-field>
+                        <div class="col-md-3">
+                          <mat-form-field class="example-full-width">
+                            <input name="txtDataNascimento" matInput placeholder="Data de Nascimento" type="date" [(ngModel)]="internacao.paciente.dataNascimento">
+                          </mat-form-field>                          
+                        </div>  
+                        <div class="col-md-3">
+                          <mat-form-field class="example-full-width">
+                            <input name="txtCpf" matInput placeholder="CPF" type="text" [(ngModel)]="internacao.paciente.cpf">
+                          </mat-form-field>                          
+                        </div> 
+                        <div class="col-md-3">
+                          <mat-form-field class="example-full-width">
+                            <input name="txtRg" matInput placeholder="RG" type="text" [(ngModel)]="internacao.paciente.rg">
+                          </mat-form-field>                          
+                        </div>                                               
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Sexo</mat-label>
+                          <mat-select [(ngModel)]="internacao.paciente.sexo" name="selSexo">
+                            <mat-option value="F">Feminino</mat-option>
+                            <mat-option value="M">Masculino</mat-option>
+                          </mat-select>
+                        </mat-form-field> 
+                      </div> 
+                      <div class="col-md-3">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Estado civil</mat-label>
+                          <mat-select [(ngModel)]="internacao.paciente.codigoEstadoCivil" name="selEstadoCivil">
+                            <mat-option value="F">teste</mat-option>
+                          </mat-select>
+                        </mat-form-field> 
+                      </div>                      
+                    </div>  
+                    <div class="row">                     
+                    </div> 
+                    <div class="row">
+                      <div class="col-md-3">
+                        <mat-form-field class="example-full-width">
+                          <input name="txtNumeroSus" matInput placeholder="Número do cartão SUS" type="text" [(ngModel)]="internacao.paciente.numeroSus">
+                        </mat-form-field>                          
+                      </div> 
+                    </div> 
+                    <div class="row">
+                      <div class="col-md-8">
+                        <mat-form-field class="example-full-width">
+                          <input name="txtNomeMae" matInput placeholder="Nome da mãe" type="text" [(ngModel)]="internacao.paciente.nomeMae">
+                        </mat-form-field>                          
+                      </div> 
+                    </div> 
+                    <div class="row">
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header card-header-danger">                            
+                            <p class="card-category">Endereço do paciente</p>
                         </div>
-                        <div class="col-md-5">
-                            <mat-form-field class="example-full-width">
-                              <input name="txtSenha" matInput placeholder="Senha" type="text">
-                            </mat-form-field>
-                        </div>
-                    </div>                          
-                      <div class="row">
-                          <div class="col-md-10">
-                            <mat-form-field class="example-full-width">
-                              <input name="txtNumeroMatricula" matInput placeholder="Número da matrícula" type="text">
-                            </mat-form-field>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-3">
+                              <mat-form-field class="example-full-width">
+                                <input name="txtCep" matInput placeholder="Cep" type="text" [(ngModel)]="internacao.paciente.endereco.cep">
+                              </mat-form-field>                          
+                            </div> 
+                          </div> 
+                          <div class="row">
+                            <div class="col-md-6">
+                              <mat-form-field class="example-full-width">
+                                <input name="txtLogradouro" matInput placeholder="Logradouro" type="text" [(ngModel)]="internacao.paciente.endereco.logradouro">
+                              </mat-form-field>                          
+                            </div> 
+                            <div class="col-md-2">
+                              <mat-form-field class="example-full-width">
+                                <input name="txtNUmero" matInput placeholder="Número" type="number" [(ngModel)]="internacao.paciente.endereco.numero">
+                              </mat-form-field>                          
+                            </div> 
                           </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <mat-form-field class="example-full-width">
+                                <input name="txtComplemento" matInput placeholder="Complemento" type="text" [(ngModel)]="internacao.paciente.endereco.complemento">
+                              </mat-form-field>                          
+                            </div> 
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <mat-form-field class="example-full-width">
+                                <input name="txtBairro" matInput placeholder="Bairro" type="text" [(ngModel)]="internacao.paciente.endereco.bairro">
+                              </mat-form-field>                          
+                            </div> 
+                            <div class="col-md-4">
+                              <mat-form-field class="example-full-width">
+                                <input name="txtCidade" matInput placeholder="Cidade" type="text" [(ngModel)]="internacao.paciente.endereco.cidade">
+                              </mat-form-field>                          
+                            </div>                             
+                          </div> 
+                          <div class="row">
+                            <div class="col-md-5">
+                              <mat-form-field appearance="fill">
+                                <mat-label>Estado</mat-label>
+                                <mat-select [(ngModel)]="internacao.paciente.endereco.estado" name="selEstado">
+                                  <mat-option>teste</mat-option>
+                                </mat-select>
+                              </mat-form-field>                         
+                            </div> 
+                          </div>
+                        </div>
                       </div>
-                      <div class="row">
-                          <div class="col-md-10">
-                            <mat-form-field class="example-full-width">
-                              <input name="txtNumeroSus" matInput placeholder="Número SUS" type="text">
-                            </mat-form-field>
-                          </div>                             
+                    </div>
+                    </div>                    
+                    <div class="row">
+                      <div class="col-md-8">
+                        <mat-form-field class="example-full-width">
+                          <input name="txtNomeMedicoSolicitante" matInput placeholder="Nome do médico solicitante" type="text" [(ngModel)]="internacao.nomeMedico">
+                        </mat-form-field>                        
+                      </div> 
+                    </div>
+                    <div class="row">
+                      <div class="col-md-10">
+                        <mat-form-field class="example-full-width">
+                          <input name="txtMotivo" matInput placeholder="Motivo" type="text" [(ngModel)]="internacao.motivo">
+                        </mat-form-field>                        
+                      </div> 
+                    </div>  
+                    <div class="row">
+                      <div class="col-md-10">
+                        <button mat-raised-button type="button" (click)="cadastrar()" class="btn btn-danger pull-left">Cadastrar</button>
+                        <button mat-raised-button type="button" (click)="voltarListaUsuario()" class="btn btn-danger pull-left">Voltar</button>
+                        <div class="clearfix"></div>
                       </div>
-                      <!-- <div class="row">
-                        <div class="col-md-10">
-                            <select name="selPerfil" class="form-control" (ngModelChange)="selectPerfilChange($event)" [(ngModel)]="usuario.codigoPerfil">
-                              <option *ngFor="let item of listaPerfil" [selected]="item.codigo == usuario.codigoPerfil ? 'selected' : ''" [value]="item.codigo">{{item.descricao}}</option>
-                            </select>
-                        </div>                             
-                      </div>                           -->
-                      <button mat-raised-button type="button" (click)="cadastrar()" class="btn btn-danger pull-left">Cadastrar</button>
-                      <button mat-raised-button type="button" class="btn btn-danger pull-left">Voltar</button>
-                      <div class="clearfix"></div>
+                    </div>                    
                   </form>
               </div>
           </div>
       </div>          
-  </div>
+      </div>
   </div>
 </div>

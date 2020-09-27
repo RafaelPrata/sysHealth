@@ -1,24 +1,29 @@
-import { Perfil } from '../models/Perfil';
-import { ApiService } from '../services/api.service';
+import { Dominio } from '../models/Dominio';
+import { UsuarioApiService } from '../services/usuarioApi.service';
 import { Usuario } from '../models/Usuario';
 import { Component, OnInit } from '@angular/core';
+import { DadosTelaCadastroUsuario } from 'app/models/responseDTO/DadosTelaCadastroUsuario';
+import { PesquisarUsuarioDTO } from 'app/models/requestDTO/pesquisarUsuarioDTO';
 // import {NgForm} from '@angular/forms';
 
 @Component({
     selector: 'cadastro-usuario',
     templateUrl: './cadastro-usuario.component.html',
     styleUrls: ['./cadastro-usuario.component.css'],
-    providers: [ApiService]
+    providers: [UsuarioApiService]
 })
 export class CadastroUsuarioComponent implements OnInit {
 
     private usuario: Usuario;
     public modoConsulta: boolean;
     private listaUsuarios: Usuario[];
-    private listaPerfil: Perfil[];
+    private listaPerfil: Dominio[];
 
-    constructor(private apiService: ApiService) {
+    private dadosTela: DadosTelaCadastroUsuario;
+
+    constructor(private usuarioApiService: UsuarioApiService) {
         this.usuario = new Usuario();
+        this.dadosTela = new DadosTelaCadastroUsuario();
         this.modoConsulta = true;
     }
 
@@ -26,8 +31,30 @@ export class CadastroUsuarioComponent implements OnInit {
         this.listarUsuarios();
     }
 
+    pesquisar(event: any){
+
+        let request = new PesquisarUsuarioDTO();
+
+        request.nome = event.target.txtFiltroNome.value;
+        request.login = event.target.txtFiltroLogin.value;
+        request.codigoUsuario = event.target.selFiltroPerfil.value;
+
+        this.usuarioApiService.listarUsuarios(request)
+        .subscribe((usuarios: Usuario[]) => {    
+            this.listaUsuarios = usuarios;
+        });        
+
+    }    
+
     listarUsuarios(codigoUsuario: number = null) {
-        this.apiService.listarUsuarios(codigoUsuario)
+
+        let request: PesquisarUsuarioDTO = new PesquisarUsuarioDTO();
+
+        if(codigoUsuario){
+            request.codigoUsuario = codigoUsuario.toString();
+        }
+
+        this.usuarioApiService.listarUsuarios(request)
             .subscribe((usuarios: Usuario[]) => {
 
                 if (codigoUsuario) {
@@ -45,8 +72,8 @@ export class CadastroUsuarioComponent implements OnInit {
 
         this.modoConsulta = false;
 
-        this.apiService.listarPerfil()
-            .subscribe((listaPerfil: Perfil[]) => {
+        this.usuarioApiService.listarPerfil()
+            .subscribe((listaPerfil: Dominio[]) => {
                 this.listaPerfil = listaPerfil;
             });
 
@@ -63,12 +90,16 @@ export class CadastroUsuarioComponent implements OnInit {
     }
 
     excluirCadastro(codigoUsuario: number) {
-        this.apiService.deletarUsuario(codigoUsuario)
+        this.usuarioApiService.deletarUsuario(codigoUsuario)
             .subscribe();
     }
 
     cadastrar() {
-        this.apiService.cadastrarUsuario(this.usuario).subscribe(() => alert('sucesso'), error => console.log(error));
+        this.usuarioApiService.cadastrarUsuario(this.usuario).subscribe(() => alert('sucesso'), error => console.log(error));
+    }
+
+    cadastrarNovo() {
+        this.modoConsulta = false;
     }
 
     selectPerfilChange($event) {
