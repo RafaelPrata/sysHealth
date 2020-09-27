@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment.prod';
 import { Dominio } from '../models/Dominio';
 import { Usuario } from '../models/Usuario';
 import { Injectable } from '@angular/core';
@@ -8,18 +9,18 @@ import { PesquisarUsuarioDTO } from 'app/models/requestDTO/pesquisarUsuarioDTO';
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioApiService extends ApiService {
+export class UsuarioApiService {
 
   //private http: HttpClient;
 
   constructor(private http: HttpClient) { 
-    super();   
+   
   }
 
   listarUsuarios(parametros : PesquisarUsuarioDTO = null): Observable<Usuario[]>{
 
     if(parametros.codigoUsuario){
-      return this.http.get<Usuario[]>(`${this.urlApi}/usuario/${parametros.codigoUsuario}`);
+      return this.http.get<Usuario[]>(`${environment.urlApi}/usuario/${parametros.codigoUsuario}`);
     }
     else{
 
@@ -27,7 +28,7 @@ export class UsuarioApiService extends ApiService {
                                                     .set("login", parametros.login)
                                                     .set("codigoPerfil", parametros.codigoPerfil);
 
-      return this.http.get<Usuario[]>(`${this.urlApi}/usuario`, {params : httpParams});
+      return this.http.get<Usuario[]>(`${environment.urlApi}/usuario`, {params : httpParams});
     }
      
 
@@ -35,17 +36,17 @@ export class UsuarioApiService extends ApiService {
 
   cadastrarUsuario(usuario: Usuario): Observable<Usuario>{
         
-      var url = usuario.codigo ? `${this.urlApi}/usuario/${usuario.codigo}` : `${this.urlApi}/usuario`;
+      var url = usuario.codigo ? `${environment.urlApi}/usuario/${usuario.codigo}` : `${environment.urlApi}/usuario`;
       
       return usuario.codigo ? this.http.put<Usuario>(url, usuario) : this.http.post<Usuario>(url, usuario);
   }
 
   deletarUsuario(codigoUsuario: number): Observable<{}>{
-    return this.http.delete(`${this.urlApi}/usuario/${codigoUsuario}`, {});    
+    return this.http.delete(`${environment.urlApi}/usuario/${codigoUsuario}`, {});    
   }
 
   listarPerfil(): Observable<Dominio[]>{
-    return this.http.get<Dominio[]>(`${this.urlApi}/perfil`);
+    return this.http.get<Dominio[]>(`${environment.urlApi}/perfil`);
   }
 
 }

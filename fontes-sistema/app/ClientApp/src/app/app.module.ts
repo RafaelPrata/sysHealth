@@ -60,7 +60,7 @@ import { InternacaoApiService } from './services/internacaoApi.service';
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
-    CentralLeitosComponent    
+    CentralLeitosComponent
   ],
   providers: [
     UsuarioApiService, 

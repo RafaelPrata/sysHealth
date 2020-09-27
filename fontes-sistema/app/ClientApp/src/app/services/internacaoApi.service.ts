@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment.prod';
 import { Dominio } from '../models/Dominio';
 import { Usuario } from '../models/Usuario';
 import { Injectable } from '@angular/core';
@@ -10,19 +11,19 @@ import { DadosInternacao } from 'app/models/DadosInternacao';
 @Injectable({
   providedIn: 'root'
 })
-export class InternacaoApiService extends ApiService {
+export class InternacaoApiService  {
 
   //private http: HttpClient;
   //private urlApi: string;
 
   constructor(private http: HttpClient) { 
-    super();   
+  
   }
 
   listarInternacao(parametros : PesquisarInternacaoDTO = null): Observable<DadosInternacao[]>{
 
     if(parametros.codigoInternacao){
-      return this.http.get<DadosInternacao[]>(`${this.urlApi}/usuario/${parametros.codigoInternacao}`);
+      return this.http.get<DadosInternacao[]>(`${environment.urlApi}/usuario/${parametros.codigoInternacao}`);
     }
     else{
 
@@ -30,7 +31,7 @@ export class InternacaoApiService extends ApiService {
                                                     .set("codigoClassificacao", parametros.codigoClassificacao)
                                                     .set("codigoStatus", parametros.codigoStatus);
 
-      return this.http.get<DadosInternacao[]>(`${this.urlApi}/usuario`, {params : httpParams});
+      return this.http.get<DadosInternacao[]>(`${environment.urlApi}/usuario`, {params : httpParams});
     }
      
 
@@ -38,17 +39,17 @@ export class InternacaoApiService extends ApiService {
 
   cadastrarInternacao(dadosInternacao: DadosInternacao): Observable<DadosInternacao>{
         
-      var url = dadosInternacao.codigo ? `${this.urlApi}/usuario/${dadosInternacao.codigo}` : `${this.urlApi}/usuario`;
+      var url = dadosInternacao.codigo ? `${environment.urlApi}/usuario/${dadosInternacao.codigo}` : `${environment.urlApi}/usuario`;
       
       return dadosInternacao.codigo ? this.http.put<DadosInternacao>(url, dadosInternacao) : this.http.post<DadosInternacao>(url, dadosInternacao);
   }
 
   deletarInternacao(codigoUsuario: number): Observable<{}>{
-    return this.http.delete(`${this.urlApi}/usuario/${codigoUsuario}`, {});    
+    return this.http.delete(`${environment.urlApi}/usuario/${codigoUsuario}`, {});    
   }
 
   listarPerfil(): Observable<Dominio[]>{
-    return this.http.get<Dominio[]>(`${this.urlApi}/perfil`);
+    return this.http.get<Dominio[]>(`${environment.urlApi}/perfil`);
   }
 
 }
