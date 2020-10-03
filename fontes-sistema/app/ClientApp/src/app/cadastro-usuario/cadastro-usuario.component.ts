@@ -47,25 +47,24 @@ export class CadastroUsuarioComponent implements OnInit {
     }    
 
     listarUsuarios(codigoUsuario: number = null) {
-
+                
         let request: PesquisarUsuarioDTO = new PesquisarUsuarioDTO();
 
         if(codigoUsuario){
-            request.codigoUsuario = codigoUsuario.toString();
+            request.codigoUsuario = codigoUsuario.toString();            
         }
 
         this.usuarioApiService.listarUsuarios(request)
             .subscribe((usuarios: Usuario[]) => {
 
                 if (codigoUsuario) {
-                    this.usuario = usuarios[0];
-
-                    console.log(this.usuario);
+                    this.usuario = usuarios[0];                    
                 }
                 else
                     this.listaUsuarios = usuarios;
 
-            });
+
+            }, (error) => { console.log(error) });
     }
 
     exibirFormularioCadastro(codigoUsuario: number = null) {

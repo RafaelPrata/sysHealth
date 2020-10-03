@@ -4,7 +4,7 @@ export class DadosPaciente {
     nome: string;
     dataNascimento: Date;
     sexo: string;
-    codigoEstadoCivil: number;
+    estadoCivil: string;
     cpf: string;
     rg: string;
     numeroSus: string;

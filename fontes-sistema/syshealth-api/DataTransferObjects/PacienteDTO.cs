@@ -14,7 +14,7 @@ namespace syshealth_api.DataTransferObjects
 
         public DateTime DataNascimento { get; set; }
 
-        public double CodigoEstadoCivil { get; set; }
+        public string EstadoCivil { get; set; }
 
         public string Cpf { get; set; }
 

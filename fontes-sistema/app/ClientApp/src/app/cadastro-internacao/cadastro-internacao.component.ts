@@ -76,7 +76,10 @@ export class CadastroInternacaoComponent implements OnInit {
     }
 
     cadastrar(){
-        console.log(this.internacao);
+        this.internacaoApiService.cadastrarInternacao(this.internacao)
+                                    .subscribe((dados: DadosInternacao) =>{
+                                        alert('Pedido de internção cadastrada.');
+                                    });
     }
 
     voltarListaUsuario(){        

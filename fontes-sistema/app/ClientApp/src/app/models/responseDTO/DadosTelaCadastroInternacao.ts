@@ -4,8 +4,18 @@ export class DadosTelaCadastroInternacao {
     listaClassificao: Dominio[]
     listaStatus: Dominio[]
     listaEstados: any[]
+    listaEstadoCivil: any[]
 
     constructor() {
+
+        this.listaEstadoCivil = [
+            { "descricao": "Solteiro(a)" },
+            { "descricao": "Casado(a)" },
+            { "descricao": "Divorciado(a)" },
+            { "descricao": "Viúvo(a)" },
+            { "descricao": "Separado(a)" }            
+        ];
+
         this.listaEstados = [
             { "sigla": "AC" },
             { "sigla": "AL" },

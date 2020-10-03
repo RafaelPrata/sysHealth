@@ -142,8 +142,8 @@
                                 <div class="col-md-3">
                                     <mat-form-field appearance="fill">
                                         <mat-label>Estado civil</mat-label>
-                                        <mat-select matNativeControl [(ngModel)]="internacao.paciente.codigoEstadoCivil" name="selEstadoCivil">
-                                            <mat-option value="F">teste</mat-option>
+                                        <mat-select matNativeControl [(ngModel)]="internacao.paciente.estadoCivil" name="selEstadoCivil">
+                                            <mat-option *ngFor="let item of this.dadosTela.listaEstadoCivil" [value]="item.descricao">{{item.descricao}}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                 </div>

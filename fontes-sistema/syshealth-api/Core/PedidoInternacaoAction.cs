@@ -37,14 +37,12 @@ namespace syshealth_api.Core
             var pacienteCollection = GetCollection<Paciente>();
             var pedidoInternacaoCollection = GetCollection<PedidoInternacao>();
 
-            var leitoDisponivel = VerificarLeitoDisponivel(1, 1, DateTime.Now);
-
             var paciente = new Paciente
             {
                 Codigo = pacienteCollection.EstimatedDocumentCount() + 1,
-                DataNascimento = objPedidoInternacao.Paciente.DataNasicmento,
+                DataNascimento = objPedidoInternacao.Paciente.DataNascimento,
                 Endereco = objPedidoInternacao.Paciente.Endereco,
-                EstadoCivil = objPedidoInternacao.Paciente.EstadoCivil,
+                EstadoCivil = objPedidoInternacao.Paciente.EstadoCivil.ToString(),
                 Nome = objPedidoInternacao.Paciente.Nome,
                 NomeMae = objPedidoInternacao.Paciente.NomeMae,
                 NumeroCpf = objPedidoInternacao.Paciente.Cpf,
@@ -56,14 +54,18 @@ namespace syshealth_api.Core
             var pedidoInternacao = new PedidoInternacao
             {
                 Codigo = pedidoInternacaoCollection.EstimatedDocumentCount() + 1,
-                Classificacao = objPedidoInternacao.Classificacao,
+                Classificacao = objPedidoInternacao.CodigoClassificacao,
                 CodigoUsuario = objPedidoInternacao.CodigoUsuario,
                 DataHoraSolicitacao = DateTime.Now,
-                MedicoSolicitante = objPedidoInternacao.NomeMedicoSolicitante,
+                MedicoSolicitante = objPedidoInternacao.NomeMedico,
                 Motivo = objPedidoInternacao.Motivo,
                 CodigoPaciente = paciente.Codigo,
                 CodigoTipoLeito = objPedidoInternacao.CodigoTipoLeito
             };
+
+            var leitoDisponivel = VerificarLeitoDisponivel(pedidoInternacao.CodigoTipoLeito,
+                                                           pedidoInternacao.Classificacao,
+                                                           pedidoInternacao.DataHoraSolicitacao);
 
             if (leitoDisponivel != null)
             {

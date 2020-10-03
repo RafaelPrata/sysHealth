@@ -11,27 +11,24 @@ import { PesquisarUsuarioDTO } from 'app/models/requestDTO/pesquisarUsuarioDTO';
 })
 export class UsuarioApiService {
 
-  //private http: HttpClient;
-
   constructor(private http: HttpClient) { 
-   
+      
   }
 
-  listarUsuarios(parametros : PesquisarUsuarioDTO = null): Observable<Usuario[]>{
+    listarUsuarios(parametros: PesquisarUsuarioDTO = null): Observable<Usuario[]>{
+        
+        if(parametros.codigoUsuario){
+          return this.http.get<Usuario[]>(`${environment.urlApi}/usuario/${parametros.codigoUsuario}`);
+        }
+        else {
+            
+          let httpParams : HttpParams = new HttpParams().set("nome", parametros.nome)
+                                                        .set("login", parametros.login)
+                                                        .set("codigoPerfil", parametros.codigoPerfil);
 
-    if(parametros.codigoUsuario){
-      return this.http.get<Usuario[]>(`${environment.urlApi}/usuario/${parametros.codigoUsuario}`);
-    }
-    else{
-
-      let httpParams : HttpParams = new HttpParams().set("nome", parametros.nome)
-                                                    .set("login", parametros.login)
-                                                    .set("codigoPerfil", parametros.codigoPerfil);
-
-      return this.http.get<Usuario[]>(`${environment.urlApi}/usuario`, {params : httpParams});
-    }
+            return this.http.get<Usuario[]>(`${environment.urlApi}/usuario`, { params: httpParams});
+        }
      
-
   }
 
   cadastrarUsuario(usuario: Usuario): Observable<Usuario>{
