@@ -8,9 +8,11 @@ namespace syshealth_api.DataTransferObjects
 {
     public class PedidoInternacaoDTO
     {
-        public string NomeMedicoSolicitante { get; set; }
+        public double Codigo { get; set; }
 
-        public double Classificacao { get; set; }
+        public string NomeMedico { get; set; }
+
+        public double CodigoClassificacao { get; set; }
 
         public string Motivo { get; set; }
 
