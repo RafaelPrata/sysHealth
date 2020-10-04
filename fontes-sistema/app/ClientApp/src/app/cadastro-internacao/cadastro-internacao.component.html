@@ -57,27 +57,16 @@
                                     <table class="table">
                                         <thead class=" text-primary">
                                         <th>
-                                            xxxxxxx
+                                            Código internação
                                         </th>
                                         <th>
-                                            xxxxxxx
-                                        </th>
-                                        <th>
-                                            xxxxxxx
-                                        </th>
-                                        <th>
-                                            xxxxxxx
-                                        </th>
-                                        <th>
-                                            xxxxxxx
-                                        </th>
-                                        <th>
-                                            xxxxxxx
+                                            Data solicitação
                                         </th>
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let item of listaInternacao">
-                                                <td></td>
+                                                <td>{{item.codigo}}</td>
+                                                <td>{{item.dataHoraSolicitacao | date:'dd/MM/yyyy'}}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-sm" title="Editar" (click)="exibirFormularioCadastro(item.codigo)">
                                                         <i class="fa fa-edit fa-5x" aria-hidden="true"></i>
@@ -115,7 +104,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
-                                        <input name="txtDataNascimento" matInput placeholder="Data de Nascimento" type="date" [(ngModel)]="internacao.paciente.dataNascimento">
+                                        <input name="txtDataNascimento" matInput placeholder="Data de Nascimento" type="date" [(ngModel)]="internacao.paciente.dataNascimento | date:'yyyy-MM-dd'">
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
@@ -213,7 +202,7 @@
                                                 <div class="col-md-5">
                                                     <mat-form-field appearance="fill">
                                                         <mat-label>Estado</mat-label>
-                                                        <mat-select [(ngModel)]="internacao.paciente.endereco.estado" name="selEstado">
+                                                        <mat-select [(ngModel)]="internacao.paciente.endereco.uf" name="selEstado">
                                                             <mat-option *ngFor="let item of this.dadosTela.listaEstados" [value]="item.sigla">{{item.sigla}}</mat-option>
                                                         </mat-select>                                                        
                                                     </mat-form-field>

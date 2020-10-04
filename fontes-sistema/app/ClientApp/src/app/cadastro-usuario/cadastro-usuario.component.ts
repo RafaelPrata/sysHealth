@@ -17,7 +17,6 @@ export class CadastroUsuarioComponent implements OnInit {
     private usuario: Usuario;
     public modoConsulta: boolean;
     private listaUsuarios: Usuario[];
-    private listaPerfil: Dominio[];
 
     private dadosTela: DadosTelaCadastroUsuario;
 
@@ -29,6 +28,11 @@ export class CadastroUsuarioComponent implements OnInit {
 
     ngOnInit() {
         this.listarUsuarios();
+
+        this.usuarioApiService.listarPerfil()
+            .subscribe((listaPerfil: Dominio[]) => {
+                this.dadosTela.listaPerfil = listaPerfil;
+            });        
     }
 
     pesquisar(event: any){
@@ -71,21 +75,12 @@ export class CadastroUsuarioComponent implements OnInit {
 
         this.modoConsulta = false;
 
-        this.usuarioApiService.listarPerfil()
-            .subscribe((listaPerfil: Dominio[]) => {
-                this.listaPerfil = listaPerfil;
-            });
-
         if (codigoUsuario) {
             this.listarUsuarios(codigoUsuario);
         }
         else
-            this.limparCampos();
+            this.usuario = new Usuario();
 
-    }
-
-    limparCampos() {
-        this.usuario = new Usuario();
     }
 
     excluirCadastro(codigoUsuario: number) {
@@ -94,15 +89,29 @@ export class CadastroUsuarioComponent implements OnInit {
     }
 
     cadastrar() {
-        this.usuarioApiService.cadastrarUsuario(this.usuario).subscribe(() => alert('sucesso'), error => console.log(error));
+
+        if (this.usuario.codigo) {
+            this.usuarioApiService.atualizarUsuario(this.usuario).subscribe((usuario: Usuario) => {
+                alert('Cadastro atualizado com sucesso.');
+            }, error => console.log(error));
+        }
+        else {
+            this.usuarioApiService.cadastrarUsuario(this.usuario).subscribe((usuario: Usuario) => {
+                alert('Cadastro realizado com sucesso.');
+                this.listaUsuarios.push(usuario);
+                this.usuario = new Usuario();
+            }, error => console.log(error));
+        }
+
     }
 
     cadastrarNovo() {
         this.modoConsulta = false;
+        this.usuario = new Usuario();
     }
 
     selectPerfilChange($event) {
-        this.usuario.codigoPerfil = this.listaPerfil[$event - 1].codigo;
+        this.usuario.codigoPerfil = this.dadosTela.listaPerfil[$event - 1].codigo;
     }
 
 }

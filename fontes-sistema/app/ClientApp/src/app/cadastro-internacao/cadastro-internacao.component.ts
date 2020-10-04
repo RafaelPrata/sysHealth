@@ -3,6 +3,8 @@ import { DadosInternacao } from 'app/models/DadosInternacao';
 import { PesquisarInternacaoDTO } from 'app/models/requestDTO/pesquisarInternacaoDTO';
 import { DadosTelaCadastroInternacao } from 'app/models/responseDTO/DadosTelaCadastroInternacao';
 import { InternacaoApiService } from 'app/services/internacaoApi.service';
+import { Dominio } from '../models/Dominio';
+import { error } from 'jquery';
 // import {NgForm} from '@angular/forms';
 
 @Component({
@@ -29,6 +31,16 @@ export class CadastroInternacaoComponent implements OnInit {
 
     ngOnInit() {
 
+        this.listarInternacao();
+
+        this.internacaoApiService.listarStatus().subscribe((listaStatus: Dominio[]) => {
+            this.dadosTela.listaStatus = listaStatus;
+        })
+
+        this.internacaoApiService.listarClassificacao().subscribe((listaClassificacao: Dominio[]) => {
+            this.dadosTela.listaClassificacao = listaClassificacao;
+        })
+
     }    
 
     exibirFormularioCadastro(codigoInternacao: number = null) {
@@ -36,34 +48,26 @@ export class CadastroInternacaoComponent implements OnInit {
         this.modoConsulta = false;
 
         if (codigoInternacao) {
-            this.listarInternacao(codigoInternacao);
+            this.internacaoApiService.getInternacao(codigoInternacao).subscribe((dadosInternacao: DadosInternacao) => {
+
+                this.internacao = dadosInternacao;
+
+                console.log(this.internacao);
+
+            }, (error) => console.log(error));
         }
         else
-            this.limparCampos();
+            this.internacao = new DadosInternacao();
 
     }
 
-    limparCampos(){
 
-    }
+    listarInternacao() {
 
-    listarInternacao(codigoInternacao: number = null) {
-
-        let request: PesquisarInternacaoDTO = new PesquisarInternacaoDTO();
-
-        if(codigoInternacao){
-            request.codigoInternacao = codigoInternacao.toString();
-        }
-
-        this.internacaoApiService.listarInternacao(request)
+        this.internacaoApiService.listarInternacao()
             .subscribe((listaInternacao: DadosInternacao[]) => {
 
-                if (codigoInternacao) {
-                    this.internacao = listaInternacao[0]
-                }
-                else
-                    this.listaInternacao = listaInternacao;
-
+                this.listaInternacao = listaInternacao;                
             });
     }
 
@@ -73,12 +77,16 @@ export class CadastroInternacaoComponent implements OnInit {
 
     cadastrarNovo(){
         this.modoConsulta = false;
+        this.internacao = new DadosInternacao();
     }
 
-    cadastrar(){
+    cadastrar() {
+
         this.internacaoApiService.cadastrarInternacao(this.internacao)
                                     .subscribe((dados: DadosInternacao) =>{
-                                        alert('Pedido de internção cadastrada.');
+                                        alert('Pedido de internação cadastrada.');
+                                        this.listaInternacao.push(dados);
+                                        this.internacao = new DadosInternacao();
                                     });
     }
 

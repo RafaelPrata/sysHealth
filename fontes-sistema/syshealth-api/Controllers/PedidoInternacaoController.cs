@@ -26,10 +26,52 @@ namespace syshealth_api.Controllers
 
         [HttpGet]
         [Route("{codigo}")]
-        [Route("/PedidoInternacao")]
-        public IEnumerable<PedidoInternacao> Get(double? codigo)
+        public PedidoInternacaoDTO Get(double codigo)
         {
-            return this.Action.Listar<PedidoInternacao>(codigo);
+            var pedidoInternacao = this.Action.Listar<PedidoInternacao>(codigo).FirstOrDefault();
+
+            var paciente = this.Action.Listar<Paciente>(pedidoInternacao.CodigoPaciente).FirstOrDefault();
+
+            return new PedidoInternacaoDTO
+            {
+                Codigo = pedidoInternacao.Codigo,
+
+                NomeMedico = pedidoInternacao.MedicoSolicitante,
+
+                CodigoClassificacao = pedidoInternacao.Classificacao,
+
+                Motivo = pedidoInternacao.Motivo,
+
+                Paciente = new PacienteDTO
+                {
+                    Cpf = paciente.NumeroCpf,
+                    DataNascimento = paciente.DataNascimento.ToShortDateString(),
+                    EstadoCivil = paciente.EstadoCivil,
+                    Nome = paciente.Nome,
+                    NomeMae = paciente.NomeMae,
+                    NumeroSus = paciente.NumeroSus,
+                    Rg = paciente.NumeroRg,
+                    Sexo = paciente.Sexo,
+                    Endereco = new EnderecoPaciente
+                    {
+                        Bairro = paciente.Endereco.Bairro,
+                        Cep = paciente.Endereco.Cep,
+                        Cidade = paciente.Endereco.Cidade,
+                        Complemento = paciente.Endereco.Complemento,
+                        Logradouro = paciente.Endereco.Logradouro,
+                        Numero = paciente.Endereco.Numero,
+                        Uf = paciente.Endereco.Uf
+                    }
+                }
+            };
+
+        }
+
+        [HttpGet]
+        [Route("/PedidoInternacao")]
+        public IEnumerable<PedidoInternacao> Get()
+        {
+            return this.Action.Listar<PedidoInternacao>();            
         }
 
         [HttpGet]
@@ -39,10 +81,17 @@ namespace syshealth_api.Controllers
             return this.Action.GetCollection<StatusPedidoInternacao>().Find(_ => true).ToList();
         }
 
-        [HttpPost]
-        public void Post([FromBody] PedidoInternacaoDTO objPedidoInternacao)
+        [HttpGet]
+        [Route("/PedidoInternacao/classificacao")]
+        public IEnumerable<Classificacao> GetListaClassificacaoPedidoInternacao()
         {
-            Action.GravarPedidoInternacao(objPedidoInternacao);
+            return this.Action.GetCollection<Classificacao>().Find(_ => true).ToList();
+        }
+
+        [HttpPost]
+        public PedidoInternacao Post([FromBody] PedidoInternacaoDTO objPedidoInternacao)
+        {
+            return Action.GravarPedidoInternacao(objPedidoInternacao);
         }
 
         [HttpPut("{id}")]
