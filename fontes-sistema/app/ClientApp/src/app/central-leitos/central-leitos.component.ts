@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoaderService } from 'app/services/loader.service';
+import { Session } from 'protractor';
 
 @Component({
   selector: 'app-central-leitos',
@@ -14,8 +15,9 @@ export class CentralLeitosComponent implements OnInit {
       
   }
 
-  load(){
-
+    load() {
+        
+       
   }
 
 }

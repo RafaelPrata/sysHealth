@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UsuarioApiService } from './usuarioApi.service';
 import { Usuario } from '../models/Usuario';
+import { LocalVariables } from '../util/localVariables';
 
 @Injectable({
     providedIn: 'root'
@@ -19,21 +20,29 @@ export class AutenticacaoService {
         this.autenticado.next(val);
     }
 
-    public autenticar(login: string, senha: string): Observable<boolean> {
+    logOut() {
+        LocalVariables.limparDados();
+        this.setAutenticado(false);
+    }
+
+    public logIn(login: string, senha: string): Observable<boolean> {
 
         return new Observable((observer) => {
 
             this.usuarioApiService.autenticar(login, senha).subscribe((usuario: Usuario) => {
 
                 if (usuario) {
-                    localStorage.setItem("codigoUsuario", usuario.codigo.toString());
-                    localStorage.setItem("codigoPerfilUsuario", usuario.codigoPerfil.toString());
+                    LocalVariables.setVariable("nomeUsuario", usuario.nome);
+                    LocalVariables.setVariable("codigoUsuario", usuario.codigo.toString());                    
+                    LocalVariables.setVariable("codigoPerfilUsuario", usuario.codigoPerfil.toString());                    
 
                     //this.setAutenticado(true);
 
                     observer.next(true);
                 }
                 else {
+                    LocalVariables.limparDados();
+
                     //this.setAutenticado(false);
 
                     observer.next(false);

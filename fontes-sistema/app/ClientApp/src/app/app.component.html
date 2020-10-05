@@ -7,7 +7,7 @@
 <app-login (autenticado)="autenticar($event)" *ngIf="!this.usuarioAutenticado"></app-login>
 <div class="wrapper">       
     <div class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
-        <app-sidebar></app-sidebar>
+        <app-sidebar [codigoPerfilUsuario]="codigoPerfilUsuario"></app-sidebar>
         <div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>        
     </div>    
     <div class="main-panel">        

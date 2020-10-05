@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { LocalVariables } from '../../util/localVariables';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -9,12 +10,12 @@ declare interface RouteInfo {
     perfil: number;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', perfil: 1, class: '' },
+    { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', perfil: 1, class: '' },
     { path: '/cadastro-usuario', title: 'Cadastro de Usuário', icon: 'person', perfil: 1, class: '' },
     { path: '/cadastro-internacao', title: 'Internações', icon: 'content_paste', perfil: 2, class: '' },
     { path: '/consulta-medica', title: 'Consulta médica', icon: 'content_paste', perfil: 3, class: '' },
-    { path: '/exame-medico', title: 'Exame médico', icon: 'content_paste', perfil: 3, class: '' },  
-    { path: '/central-leitos', title: 'Central de leitos', icon: 'content_paste', perfil: 2, class: '' },  
+    { path: '/exame-medico', title: 'Exame médico', icon: 'content_paste', perfil: 3, class: '' },
+    { path: '/central-leitos', title: 'Central de leitos', icon: 'content_paste', perfil: 2, class: '' },
     // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
     // { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
     // { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
@@ -22,22 +23,31 @@ export const ROUTES: RouteInfo[] = [
 ];
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  menuItems: any[];
+    menuItems: any[];
 
-  constructor() { }
+    @Input()
+    codigoPerfilUsuario: number;
 
-  ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
-  }
-  isMobileMenu() {
-      if ($(window).width() > 991) {
-          return false;
-      }
-      return true;
-  };
+    constructor() { }
+
+    ngOnChanges(changes: SimpleChanges) {        
+        this.menuItems = LocalVariables.codigoPerfilUsuario() == 1 ? ROUTES.filter(menuItem => menuItem) :
+            ROUTES.filter(menuItem => menuItem.perfil == LocalVariables.codigoPerfilUsuario());
+    }
+
+    ngOnInit() {
+
+    }
+
+    isMobileMenu() {
+        if ($(window).width() > 991) {
+            return false;
+        }
+        return true;
+    };
 }

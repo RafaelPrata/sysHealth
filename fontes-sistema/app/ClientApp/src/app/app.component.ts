@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
 import * as $ from "jquery";
 import { AutenticacaoService } from './services/autenticacao.service';
+import { LocalVariables } from './util/localVariables';
 
 @Component({
     selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
     private yScrollStack: number[] = [];
     public showLoader: boolean;
     public usuarioAutenticado: boolean;
+    public codigoPerfilUsuario: number;
 
     constructor(public location: Location,
         private router: Router,
@@ -28,13 +30,15 @@ export class AppComponent implements OnInit {
 
     autenticar(usuarioAutenticado: boolean) {
         this.usuarioAutenticado = usuarioAutenticado;
+        this.codigoPerfilUsuario = LocalVariables.codigoPerfilUsuario();
     }
 
     ngOnInit() {
         const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
         this.loaderService.status.subscribe((val: boolean) => this.showLoader = val);
-        //this.autenticacaoService.autenticado.subscribe((val: boolean) => this.teste2(val));
+
+        this.autenticacaoService.autenticado.subscribe((val: boolean) => this.usuarioAutenticado = val);
         
         if (isWindows && !document.getElementsByTagName('body')[0].classList.contains('sidebar-mini')) {
             // if we are on windows OS we activate the perfectScrollbar function

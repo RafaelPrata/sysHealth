@@ -4,6 +4,7 @@ import { Usuario } from '../models/Usuario';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AutenticacaoService } from '../services/autenticacao.service';
 import { LoaderService } from '../services/loader.service';
+import { LocalVariables } from '../util/localVariables';
 
 @Component({
     selector: 'app-login',
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
         let login: string = this.form.controls.username.value;
         let senha: string = this.form.controls.password.value;
 
-        this.autenticacaoService.autenticar(login, senha).subscribe((usuarioAutenticado: boolean) => {
+        this.autenticacaoService.logIn(login, senha).subscribe((usuarioAutenticado: boolean) => {
 
             if (!usuarioAutenticado) {
                 alert('Login ou senha inválidos.');
@@ -47,8 +48,8 @@ export class LoginComponent implements OnInit {
                 this.form.reset();
             }
 
-            //this.loaderService.display(autenticado);
-            //this.autenticacaoService.setAutenticado(autenticado);
+            //this.loaderService.display(usuarioAutenticado);
+            //this.autenticacaoService.setAutenticado(usuarioAutenticado);
             this.autenticado.emit(usuarioAutenticado);
 
         }, (error) => console.log(error));

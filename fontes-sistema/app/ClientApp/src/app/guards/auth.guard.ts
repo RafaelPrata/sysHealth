@@ -1,6 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AutenticacaoService } from '../services/autenticacao.service';
+import { LocalVariables } from '../util/localVariables';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -9,7 +10,7 @@ export class AuthGuard implements CanActivate {
                 private autenticacaoService: AutenticacaoService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (localStorage.getItem('codigoUsuario')) {
+        if (LocalVariables.getVariable('codigoUsuario')) {
             this.autenticacaoService.setAutenticado(true);
             return true;
         }
