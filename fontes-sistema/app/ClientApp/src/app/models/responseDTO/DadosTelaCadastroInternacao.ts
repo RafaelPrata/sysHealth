@@ -1,7 +1,7 @@
 import { Dominio } from "../Dominio";
 
 export class DadosTelaCadastroInternacao {
-    listaClassificao: Dominio[]
+    listaClassificacao: Dominio[]
     listaStatus: Dominio[]
     listaEstados: any[]
     listaEstadoCivil: any[]

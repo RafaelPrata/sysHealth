@@ -6,14 +6,15 @@ declare interface RouteInfo {
     title: string;
     icon: string;
     class: string;
+    perfil: number;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/cadastro-usuario', title: 'Cadastro de Usuário',  icon:'person', class: '' },
-    { path: '/cadastro-internacao', title: 'Internações',  icon:'content_paste', class: '' },
-    { path: '/consulta-medica', title: 'Consulta médica',  icon:'content_paste', class: '' },
-    { path: '/exame-medico', title: 'Exame médico',  icon:'content_paste', class: '' },  
-    { path: '/central-leitos', title: 'Central de leitos',  icon:'content_paste', class: '' },  
+    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', perfil: 1, class: '' },
+    { path: '/cadastro-usuario', title: 'Cadastro de Usuário', icon: 'person', perfil: 1, class: '' },
+    { path: '/cadastro-internacao', title: 'Internações', icon: 'content_paste', perfil: 2, class: '' },
+    { path: '/consulta-medica', title: 'Consulta médica', icon: 'content_paste', perfil: 3, class: '' },
+    { path: '/exame-medico', title: 'Exame médico', icon: 'content_paste', perfil: 3, class: '' },  
+    { path: '/central-leitos', title: 'Central de leitos', icon: 'content_paste', perfil: 2, class: '' },  
     // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
     // { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
     // { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },

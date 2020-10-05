@@ -37,13 +37,15 @@ namespace syshealth_api.Core
                                     collection.Find(x => x.Codigo == codigo).ToList();
         }
 
-        public void Gravar<T>(T obj) where T : DomainBase
+        public T Gravar<T>(T obj) where T : DomainBase
         {
             var collection = db.GetCollection<T>(typeof(T).Name);
 
             obj.Codigo = collection.EstimatedDocumentCount() + 1;
 
             collection.InsertOne(obj);
+
+            return obj;
         }
 
         public UpdateResult Atualizar<T>(double codigo, UpdateDefinition<T> update) where T : DomainBase

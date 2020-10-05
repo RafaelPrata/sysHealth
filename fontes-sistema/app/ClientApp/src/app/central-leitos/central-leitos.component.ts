@@ -15,7 +15,7 @@ export class CentralLeitosComponent implements OnInit {
   }
 
   load(){
-    this.loaderservice.display(true);
+
   }
 
 }

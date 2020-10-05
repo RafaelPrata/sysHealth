@@ -24,13 +24,13 @@ namespace syshealth_api.Controllers
 
         }
 
-        [HttpGet]
-        [Route("/Usuario/autenticar/{login};{senha}")]
-        public Usuario Autenticar(string login, string senha)
+        [HttpPost]
+        [Route("/Usuario/autenticar")]
+        public Usuario Autenticar([FromBody] Usuario objUsuario)
         {
-            var objUsuario = Action.BuscarUsuario(login, senha);
+            var usuario = Action.BuscarUsuario(objUsuario.Login, objUsuario.Senha);
 
-            return objUsuario;
+            return usuario;
         }
 
         [HttpGet]
@@ -49,9 +49,9 @@ namespace syshealth_api.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] Usuario objUsuario)
+        public Usuario Post([FromBody] Usuario objUsuario)
         {
-            this.Action.Gravar(objUsuario);
+            return this.Action.Gravar(objUsuario);            
         }
 
         [HttpPut("{codigo}")]

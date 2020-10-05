@@ -32,7 +32,7 @@ namespace syshealth_api.Core
             return leitoDisponivel;
         }
 
-        public void GravarPedidoInternacao(PedidoInternacaoDTO objPedidoInternacao)
+        public PedidoInternacao GravarPedidoInternacao(PedidoInternacaoDTO objPedidoInternacao)
         {
             var pacienteCollection = GetCollection<Paciente>();
             var pedidoInternacaoCollection = GetCollection<PedidoInternacao>();
@@ -40,7 +40,7 @@ namespace syshealth_api.Core
             var paciente = new Paciente
             {
                 Codigo = pacienteCollection.EstimatedDocumentCount() + 1,
-                DataNascimento = objPedidoInternacao.Paciente.DataNascimento,
+                DataNascimento = DateTime.Parse(objPedidoInternacao.Paciente.DataNascimento),
                 Endereco = objPedidoInternacao.Paciente.Endereco,
                 EstadoCivil = objPedidoInternacao.Paciente.EstadoCivil.ToString(),
                 Nome = objPedidoInternacao.Paciente.Nome,
@@ -81,6 +81,8 @@ namespace syshealth_api.Core
             pacienteCollection.InsertOne(paciente);
 
             pedidoInternacaoCollection.InsertOne(pedidoInternacao);
+
+            return pedidoInternacao;
 
         }
     }

@@ -1,0 +1,38 @@
+<div class="parent">
+    <div class="main-content loginForm">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-header-danger">
+                            <h4 class="card-title ">Login</h4>
+                        </div>
+                        <div class="card-body">
+                            <form [formGroup]="form" (ngSubmit)="submit()">
+                                <div class="row">
+                                    <div col="col-md-4">
+                                        <mat-form-field class="">
+                                            <input type="text" matInput placeholder="Username" formControlName="username">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div col="col-md-4">
+                                        <mat-form-field class="">
+                                            <input type="password" matInput placeholder="Password" formControlName="password">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-danger pull-center">Login</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

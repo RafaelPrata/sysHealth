@@ -12,7 +12,7 @@ namespace syshealth_api.DataTransferObjects
 
         public string Sexo { get; set; }
 
-        public DateTime DataNascimento { get; set; }
+        public string DataNascimento { get; set; }
 
         public string EstadoCivil { get; set; }
 
