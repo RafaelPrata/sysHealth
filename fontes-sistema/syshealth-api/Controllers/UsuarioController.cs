@@ -34,11 +34,17 @@ namespace syshealth_api.Controllers
         }
 
         [HttpGet]
-        [Route("{codigo}")]
-        [Route("/Usuario")]
-        public IEnumerable<Usuario> Get(double? codigo)
+        [Route("/Usuario/{codigo}")]
+        public IEnumerable<Usuario> Get(double codigo)
         {
             return Action.Listar<Usuario>(codigo);
+        }
+
+        [HttpGet]
+        [Route("/Usuario")]
+        public IEnumerable<Usuario> Pesquisar([FromQuery] Usuario usuario)
+        {
+            return Action.PesuisarUsuario(usuario);
         }
 
         [HttpGet]

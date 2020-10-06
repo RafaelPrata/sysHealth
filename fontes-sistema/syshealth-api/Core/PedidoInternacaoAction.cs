@@ -85,5 +85,53 @@ namespace syshealth_api.Core
             return pedidoInternacao;
 
         }
+
+        public List<PedidoInternacao> Pesquisar(PedidoInternacao objPedido, string nomePaciente)
+        {
+            {
+                var collection = db.GetCollection<PedidoInternacao>(typeof(PedidoInternacao).Name);
+
+                var filterBuilder = Builders<PedidoInternacao>.Filter;
+
+                var filters = new List<FilterDefinition<PedidoInternacao>>();
+
+                if (objPedido.Codigo != 0)
+                {
+                    filters.Add(filterBuilder.Eq("Codigo", objPedido.Codigo));
+                }
+
+                if (objPedido.Classificacao != 0)
+                {
+                    filters.Add(filterBuilder.Where(x => x.Classificacao == objPedido.Classificacao));
+                }
+
+                if (objPedido.CodigoStatusPedidoInternacao != 0 && objPedido.CodigoStatusPedidoInternacao != null)
+                {
+                    filters.Add(filterBuilder.Where(x => x.CodigoStatusPedidoInternacao == objPedido.CodigoStatusPedidoInternacao));
+                }
+
+                if (!string.IsNullOrEmpty(nomePaciente))
+                {
+                    var codigos = PesquisarPacientePorNome(nomePaciente);
+
+                    filters.Add(filterBuilder.In("Codigo", codigos));
+                }
+
+                var filter = filterBuilder.And(filters);
+
+                return filters.Count > 0 ? collection.Find(filter).ToList() :
+                                          collection.Find(_ => true).ToList();
+            }
+        }
+
+
+        public List<double> PesquisarPacientePorNome(string nomePaciente)
+        {
+            var collection = db.GetCollection<Paciente>(typeof(Paciente).Name);
+
+            var filter = Builders<Paciente>.Filter.Where(x => x.Nome.Contains(nomePaciente));
+
+            return collection.Find(filter).ToList().Select(x => x.Codigo).ToList();
+        }
     }
 }

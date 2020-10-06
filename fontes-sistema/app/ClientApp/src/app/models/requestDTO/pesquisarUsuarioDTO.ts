@@ -1,5 +1,5 @@
 export class PesquisarUsuarioDTO{
-    codigoUsuario: string;
+    codigoUsuario: number;
     nome: string;
     login: string;
     codigoPerfil: string

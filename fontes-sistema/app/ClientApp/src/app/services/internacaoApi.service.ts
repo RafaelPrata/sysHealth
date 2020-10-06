@@ -9,45 +9,50 @@ import { PesquisarInternacaoDTO } from 'app/models/requestDTO/pesquisarInternaca
 import { DadosInternacao } from 'app/models/DadosInternacao';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
-export class InternacaoApiService  {
+export class InternacaoApiService {
 
-  //private http: HttpClient;
-  //private urlApi: string;
+    //private http: HttpClient;
+    //private urlApi: string;
 
-  constructor(private http: HttpClient) { 
-  
+    constructor(private http: HttpClient) {
+
     }
 
     getInternacao(codigoInternacao: number): Observable<DadosInternacao> {
 
-        return this.http.get<DadosInternacao>(`${environment.urlApi}/pedidoInternacao/${codigoInternacao}`);                
+        return this.http.get<DadosInternacao>(`${environment.urlApi}/pedidoInternacao/${codigoInternacao}`);
     }
 
-  listarInternacao(parametros : PesquisarInternacaoDTO = null): Observable<DadosInternacao[]>{
+    listarInternacao(parametros: PesquisarInternacaoDTO = null): Observable<DadosInternacao[]> {
 
-      //let httpParams : HttpParams = new HttpParams().set("nomePaciente", parametros.nomePaciente)
-      //                                              .set("codigoClassificacao", parametros.codigoClassificacao)
-      //                                              .set("codigoStatus", parametros.codigoStatus);
+        let httpParams: HttpParams = null;
 
-        return this.http.get<DadosInternacao[]>(`${environment.urlApi}/pedidoInternacao`, {});
-         
-  }
+        if (parametros) {
+            httpParams = new HttpParams().set("nomePaciente", parametros.nomePaciente ? parametros.nomePaciente : "")
+                .set("codigo", parametros.codigoInternacao ? parametros.codigoInternacao : "0")
+                .set("classificacao", parametros.codigoClassificacao ? parametros.codigoClassificacao : "0")
+                .set("codigoStatusPedidoInternacao", parametros.codigoStatus ? parametros.codigoStatus : "0");
+        }
 
-  cadastrarInternacao(dadosInternacao: DadosInternacao): Observable<DadosInternacao>{
-                    
-      return this.http.post<DadosInternacao>(`${environment.urlApi}/pedidoInternacao`, dadosInternacao);
+        return this.http.get<DadosInternacao[]>(`${environment.urlApi}/pedidoInternacao`, { params: httpParams });
+
+    }
+
+    cadastrarInternacao(dadosInternacao: DadosInternacao): Observable<DadosInternacao> {
+
+        return this.http.post<DadosInternacao>(`${environment.urlApi}/pedidoInternacao`, dadosInternacao);
     }
 
     atualizarInternacao(dadosInternacao: DadosInternacao): Observable<DadosInternacao> {
-        
+
         return this.http.put<DadosInternacao>(`${environment.urlApi}/pedidoInternacao/${dadosInternacao.codigo}`, dadosInternacao);
     }
 
-  deletarInternacao(codigoInternacao: number): Observable<{}>{
-      return this.http.delete(`${environment.urlApi}/pedidoInternacao/${codigoInternacao}`, {});    
-  }
+    deletarInternacao(codigoInternacao: number): Observable<{}> {
+        return this.http.delete(`${environment.urlApi}/pedidoInternacao/${codigoInternacao}`, {});
+    }
 
     listarStatus() {
         return this.http.get<Dominio[]>(`${environment.urlApi}/pedidoInternacao/status`);

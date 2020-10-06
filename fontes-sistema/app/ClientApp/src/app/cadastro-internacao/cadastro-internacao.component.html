@@ -27,17 +27,19 @@
                                 <div class="col-md-4">
                                     <mat-form-field appearance="fill">
                                         <mat-label>Classificação</mat-label>
-                                        <mat-select name="selFiltroClassificacao">
-                                            <mat-option *ngFor="let item of dadosTela.listaClassificacao" [value]="item.codigo">{{item.descricao}}</mat-option>
-                                        </mat-select>
+                                        <select matNativeControl name="selFiltroClassificacao">
+                                            <option value="">Selecione</option>
+                                            <option *ngFor="let item of dadosTela.listaClassificacao" [value]="item.codigo">{{item.descricao}}</option>
+                                        </select>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field appearance="fill">
                                         <mat-label>Status</mat-label>
-                                        <mat-select name="selFiltroStatus">
-                                            <mat-option *ngFor="let item of dadosTela.listaStatus" [value]="item.codigo">{{item.descricao}}</mat-option>
-                                        </mat-select>
+                                        <select matNativeControl name="selFiltroStatus">
+                                            <option value="">Selecione</option>
+                                            <option *ngFor="let item of dadosTela.listaStatus" [value]="item.codigo">{{item.descricao}}</option>
+                                        </select>
                                     </mat-form-field>
                                 </div>
                             </div>

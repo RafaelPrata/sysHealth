@@ -41,7 +41,7 @@ export class CadastroUsuarioComponent implements OnInit {
 
         request.nome = event.target.txtFiltroNome.value;
         request.login = event.target.txtFiltroLogin.value;
-        request.codigoUsuario = event.target.selFiltroPerfil.value;
+        request.codigoPerfil = event.target.selFiltroPerfil.value;
 
         this.usuarioApiService.listarUsuarios(request)
         .subscribe((usuarios: Usuario[]) => {    
@@ -55,7 +55,7 @@ export class CadastroUsuarioComponent implements OnInit {
         let request: PesquisarUsuarioDTO = new PesquisarUsuarioDTO();
 
         if(codigoUsuario){
-            request.codigoUsuario = codigoUsuario.toString();            
+            request.codigoUsuario = codigoUsuario;            
         }
 
         this.usuarioApiService.listarUsuarios(request)

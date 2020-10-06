@@ -69,9 +69,9 @@ namespace syshealth_api.Controllers
 
         [HttpGet]
         [Route("/PedidoInternacao")]
-        public IEnumerable<PedidoInternacao> Get()
+        public IEnumerable<PedidoInternacao> Get([FromQuery] PedidoInternacao pedidoInternacao, [FromQuery] string nomePaciente)
         {
-            return this.Action.Listar<PedidoInternacao>();            
+            return this.Action.Pesquisar(pedidoInternacao, nomePaciente);            
         }
 
         [HttpGet]

@@ -22,10 +22,10 @@ export class UsuarioApiService {
         }
         else {
 
-            let httpParams: HttpParams = new HttpParams().set("nome", parametros.nome)
-                .set("login", parametros.login)
-                .set("codigoPerfil", parametros.codigoPerfil);
-
+            let httpParams: HttpParams = new HttpParams().set("nome", parametros.nome ? parametros.nome : "")
+                .set("login", parametros.login ? parametros.login : "")
+                .set("codigoPerfil", parametros.codigoPerfil ? parametros.codigoPerfil : "0");
+            
             return this.http.get<Usuario[]>(`${environment.urlApi}/usuario`, { params: httpParams });
         }
 
