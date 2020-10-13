@@ -15,12 +15,8 @@ namespace syshealth_api.Domain
 
         public double CodigoHorario { get; set; }
 
-        public double CodigoPaciente { get; set; }
-
         public double CodigoMedico { get; set; }
 
         public double CodigoTipoExame { get; set; }
-
-        public string NomeResponsavelExame { get; set; }
     }
 }

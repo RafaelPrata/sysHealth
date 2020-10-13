@@ -31,6 +31,7 @@ import { InternacaoApiService } from './services/internacaoApi.service';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AutenticacaoService } from './services/autenticacao.service';
+import { AgendaApiService } from './services/agendaApi.service';
 
 @NgModule({
     imports: [
@@ -69,6 +70,7 @@ import { AutenticacaoService } from './services/autenticacao.service';
     providers: [
         UsuarioApiService,
         InternacaoApiService,
+        AgendaApiService,
         LoaderService,
         AuthGuard,
         AutenticacaoService

@@ -5,6 +5,7 @@ import { DadosTelaCadastroInternacao } from 'app/models/responseDTO/DadosTelaCad
 import { InternacaoApiService } from 'app/services/internacaoApi.service';
 import { Dominio } from '../models/Dominio';
 import { error } from 'jquery';
+import { LocalVariables } from '../util/localVariables';
 // import {NgForm} from '@angular/forms';
 
 @Component({
@@ -81,6 +82,8 @@ export class CadastroInternacaoComponent implements OnInit {
     }
 
     cadastrar() {
+
+        this.internacao.codigoUsuario = LocalVariables.codigoUsuario();
 
         this.internacaoApiService.cadastrarInternacao(this.internacao)
                                     .subscribe((dados: DadosInternacao) =>{

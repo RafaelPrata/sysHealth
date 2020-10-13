@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using syshealth_api.Core;
 using syshealth_api.Data;
+using syshealth_api.DataTransferObjects;
 using syshealth_api.Domain;
 
 namespace syshealth_api.Controllers
@@ -56,6 +57,15 @@ namespace syshealth_api.Controllers
         public IEnumerable<Especialidade> GetEspecialidades()
         {
             return this.Action.GetCollection<Especialidade>().Find(_ => true).ToList();
+        }
+
+        [HttpGet]
+        [Route("/agenda/consulta")]
+        public IEnumerable<AgendaConsultaDisponivelDTO> ListarOpcoesConsulta([FromQuery] PesquisaAgendaDTO request)
+        {
+            request.CodigoTipoAgenda = 1;
+
+           return this.Action.PesquisarHorarioDisponivel(request);
         }
 
         [HttpPost]

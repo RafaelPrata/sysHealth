@@ -8,6 +8,7 @@ export class DadosInternacao {
     motivo: string;
     dataHoraSolicitacao: Date;
     dataNascimento: string;
+    codigoUsuario: number
     
     constructor(){
         this.paciente = new DadosPaciente();

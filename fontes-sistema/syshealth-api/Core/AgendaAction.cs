@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using syshealth_api.Data;
+using syshealth_api.DataTransferObjects;
 using syshealth_api.Domain;
 using System;
 using System.Collections.Generic;
@@ -20,11 +21,11 @@ namespace syshealth_api.Core
         {
             var collection = db.GetCollection<Agenda>(typeof(Agenda).Name);
 
-            var horarioIndisponivel = collection.Find(x => x.Data == data && 
-                                                           x.CodigoHorario == codigoHorario && 
+            var horarioIndisponivel = collection.Find(x => x.Data == data &&
+                                                           x.CodigoHorario == codigoHorario &&
                                                            x.CodigoMedico == codigoMedico).Any();
 
-            return horarioIndisponivel;
+            return !horarioIndisponivel;
         }
 
         public bool VerificarHorarioDisponivelExame(DateTime data, double codigoHorario, double codigoTipoExame)
@@ -36,6 +37,44 @@ namespace syshealth_api.Core
                                                            x.CodigoTipoExame == codigoTipoExame).Any();
 
             return horarioIndisponivel;
+        }
+
+        public List<AgendaConsultaDisponivelDTO> PesquisarHorarioDisponivel(PesquisaAgendaDTO request)
+        {
+            var filterBuilder = Builders<Agenda>.Filter;
+            var filters = new List<FilterDefinition<Agenda>>();
+
+            var lista = new List<AgendaConsultaDisponivelDTO>();
+            var listaHorarios = db.GetCollection<Horario>(typeof(Horario).Name).Find(_ => true).ToList();
+            var listaMedicos = db.GetCollection<Medico>(typeof(Medico).Name).Find(x => x.CodigoEspecialidade == request.CodigoServico).ToList();
+
+            filters.Add(filterBuilder.Eq("Data", request.Data));
+            filters.Add(filterBuilder.In("CodigoMedico", listaMedicos.Select(x => x.Codigo)));
+
+            var listaAgenda = db.GetCollection<Agenda>(typeof(Agenda).Name).Find(filterBuilder.And(filters)).ToList();
+
+
+            listaMedicos.ForEach(medicoItem =>
+            {
+                var listaHorariosAux = listaHorarios.Select(x => x).ToList();
+
+                var agendaMedico = listaAgenda.FindAll(x => x.CodigoMedico == medicoItem.Codigo);
+
+                agendaMedico.ForEach(agendaMedicoItem => listaHorariosAux.RemoveAll(x => x.Codigo == agendaMedicoItem.CodigoHorario));
+
+                lista.Add(new AgendaConsultaDisponivelDTO
+                {
+                    CodigoMedico = medicoItem.Codigo,
+                    NomeMedico = medicoItem.Nome,
+                    Crm = medicoItem.CRM,
+                    Data = request.Data,
+                    Horarios = listaHorariosAux
+                });
+
+            });
+
+
+            return lista;
         }
 
     }

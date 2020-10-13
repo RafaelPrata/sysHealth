@@ -1,37 +1,76 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="row">        
-        <div class="col-md-10">          
-            <div class="card">
-                <div class="card-header card-header-danger">
-                    <h4 class="card-title">Agendar consulta médica</h4>                  
-                </div>
-                <div class="card-body">
-                    <form>
-                        <div class="row">
-                          <!-- <div class="col-md-5">
-                            <mat-form-field appearance="fill">
-                              <mat-label>Especialidade</mat-label>
-                              <mat-select name="selEspecialidade">
-                                <mat-option *ngFor="let item of listaEspecialidade" [value]="item.codigo">{{item.descricao}}</mat-option>
-                              </mat-select>
-                            </mat-form-field> 
-                          </div>      -->
-                          <div class="col-md-3">
-                            <mat-form-field class="example-full-width">
-                              <input name="txtData" matInput placeholder="Data" type="date">
-                            </mat-form-field>
-                          </div>  
-                          <div class="col-md-2">
-                            <button mat-raised-button type="button" (click)="pesquisar()" class="btn btn-danger pull-left">Pesquisar</button>
-                          </div>                                              
-                        </div>                                                
-                        <div class="clearfix"></div>
-                    </form>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Agendar consulta médica</h4>
+                    </div>
+                    <div class="card-body">
+                        <form (ngSubmit)="pesquisar($event)">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Especialidade</mat-label>
+                                        <select matNativeControl name="selFiltroEspecialidade">
+                                            <option>Selecione</option>
+                                            <option *ngFor="let item of dadosTela.listaEspecialidade" [value]="item.codigo">{{item.descricao}}</option>
+                                        </select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input name="txtData" matInput placeholder="Data" type="date">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <button mat-raised-button type="submit" class="btn btn-danger pull-left">Pesquisar</button>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                <th>
+                                    Médico
+                                </th>
+                                <th>
+                                    CRM
+                                </th>
+                                <th>
+                                    Horários Disponíveis
+                                </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of this.dadosTela.listaOpcoesConsulta">
+                                        <td>
+                                            {{item.nomeMedico}}
+                                        </td>
+                                        <td>
+                                            {{item.crm}}
+                                        </td>
+                                        <td>
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Horários</mat-label>
+                                                <select matNativeControl name="selHorarioDisponivel" [(ngModel)]="item.codigoPerfil">
+                                                    <option>Selecione</option>
+                                                    <option *ngFor="let horarioItem of item.horarios" [value]="horarioItem.codigo">{{horarioItem.horaInicial}} - {{horarioItem.horaFinal}}</option>
+                                                </select>
+                                            </mat-form-field>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm" title="Marcar Consulta" (click)="marcarConsulta($event, item)">
+                                                <i class="fa fa-check fa-5x" aria-hidden="true"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>          
+        </div>
     </div>
-    </div>
-  </div>
-  
+</div>
