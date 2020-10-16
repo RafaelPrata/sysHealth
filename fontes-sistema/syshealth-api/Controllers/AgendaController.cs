@@ -65,7 +65,7 @@ namespace syshealth_api.Controllers
         {
             request.CodigoTipoAgenda = 1;
 
-           return this.Action.PesquisarHorarioDisponivel(request);
+           return this.Action.PesquisarHorarioDisponivelConsulta(request);
         }
 
         [HttpPost]
@@ -82,6 +82,15 @@ namespace syshealth_api.Controllers
             {
                 NotFound();
             }
+        }
+
+        [HttpGet]
+        [Route("/agenda/exame")]
+        public AgendaExameDisponivelDTO ListarOpcoesExame([FromQuery] PesquisaAgendaDTO request)
+        {
+            request.CodigoTipoAgenda = 2;
+
+            return this.Action.PesquisarHorarioDisponivelExame(request);
         }
 
         [HttpPost]

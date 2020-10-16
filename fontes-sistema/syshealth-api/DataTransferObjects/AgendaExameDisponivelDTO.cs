@@ -9,7 +9,9 @@ namespace syshealth_api.DataTransferObjects
     public class AgendaExameDisponivelDTO
     {
         public string CodigoTipoExame { get; set; }
-             
+
+        public DateTime Data { get; set; }
+
         public List<Horario> Horarios { get; set; }
     }
 }

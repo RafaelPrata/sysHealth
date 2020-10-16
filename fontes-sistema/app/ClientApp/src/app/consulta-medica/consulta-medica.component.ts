@@ -15,7 +15,7 @@ import { now } from 'jquery';
 })
 export class ConsultaMedicaComponent implements OnInit {
 
-    private dadosTela: DadosTelaConsultaMedica;
+    public dadosTela: DadosTelaConsultaMedica;
 
     constructor(private agendaApiService: AgendaApiService) { }
 

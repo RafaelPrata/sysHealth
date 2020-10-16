@@ -36,10 +36,10 @@ namespace syshealth_api.Core
                                                            x.CodigoHorario == codigoHorario &&
                                                            x.CodigoTipoExame == codigoTipoExame).Any();
 
-            return horarioIndisponivel;
+            return !horarioIndisponivel;
         }
 
-        public List<AgendaConsultaDisponivelDTO> PesquisarHorarioDisponivel(PesquisaAgendaDTO request)
+        public List<AgendaConsultaDisponivelDTO> PesquisarHorarioDisponivelConsulta(PesquisaAgendaDTO request)
         {
             var filterBuilder = Builders<Agenda>.Filter;
             var filters = new List<FilterDefinition<Agenda>>();
@@ -60,7 +60,7 @@ namespace syshealth_api.Core
 
                 var agendaMedico = listaAgenda.FindAll(x => x.CodigoMedico == medicoItem.Codigo);
 
-                agendaMedico.ForEach(agendaMedicoItem => listaHorariosAux.RemoveAll(x => x.Codigo == agendaMedicoItem.CodigoHorario));
+                agendaMedico.ForEach(agendaItem => listaHorariosAux.RemoveAll(x => x.Codigo == agendaItem.CodigoHorario));
 
                 lista.Add(new AgendaConsultaDisponivelDTO
                 {
@@ -75,6 +75,27 @@ namespace syshealth_api.Core
 
 
             return lista;
+        }
+
+        public AgendaExameDisponivelDTO PesquisarHorarioDisponivelExame(PesquisaAgendaDTO request)
+        {
+
+            var lista = new List<AgendaExameDisponivelDTO>();
+            var listaHorarios = db.GetCollection<Horario>(typeof(Horario).Name).Find(_ => true).ToList();
+
+            var listaAgenda = db.GetCollection<Agenda>(typeof(Agenda).Name).Find(x => x.Data == request.Data &&
+                                                                                      x.CodigoTipoExame == request.CodigoServico).ToList();
+
+
+            listaAgenda.ForEach(agendaItem => listaHorarios.RemoveAll(x => x.Codigo == agendaItem.CodigoHorario));
+
+            return new AgendaExameDisponivelDTO
+            {
+                CodigoTipoExame = request.CodigoServico.ToString(),
+                Data = request.Data,
+                Horarios = listaHorarios
+            };
+
         }
 
     }

@@ -19,6 +19,11 @@ export class AgendaApiService {
 
     }
 
+    getTiposExames(): Observable<Dominio[]> {
+
+        return this.http.get<Dominio[]>(`${environment.urlApi}/agenda/tiposExames`);
+    }
+
     getEspecialidade(): Observable<Dominio[]> {
 
         return this.http.get<Dominio[]>(`${environment.urlApi}/agenda/medico/especialidades`);
@@ -37,8 +42,25 @@ export class AgendaApiService {
 
     }
 
+    listarOpcoesExame(parametros: PesquisarAgendaDTO = null): Observable<any> {
+
+        let httpParams: HttpParams = null;
+
+        if (parametros) {
+            httpParams = new HttpParams().set("codigoServico", parametros.codigoServico.toString())
+                .set("data", parametros.data.toString());
+        }
+
+        return this.http.get<any>(`${environment.urlApi}/agenda/exame`, { params: httpParams });
+
+    }
+
     cadastrarConsulta(dadosConsulta: Agenda): Observable<Agenda> {
         return this.http.post<Agenda>(`${environment.urlApi}/agenda/consulta`, dadosConsulta);
+    }
+
+    cadastrarExame(dadosExame: Agenda): Observable<Agenda> {
+        return this.http.post<Agenda>(`${environment.urlApi}/agenda/exame`, dadosExame);
     }
 
     //atualizarInternacao(dadosInternacao: DadosInternacao): Observable<DadosInternacao> {

@@ -39,6 +39,9 @@
                                     CRM
                                 </th>
                                 <th>
+                                    Data
+                                </th>
+                                <th>
                                     Horários Disponíveis
                                 </th>
                                 </thead>
@@ -49,6 +52,9 @@
                                         </td>
                                         <td>
                                             {{item.crm}}
+                                        </td>
+                                        <td>
+                                            {{item.data | date:'dd/MM/yyyy'}}
                                         </td>
                                         <td>
                                             <mat-form-field appearance="fill">
