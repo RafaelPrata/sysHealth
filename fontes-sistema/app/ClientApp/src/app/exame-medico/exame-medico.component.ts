@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { LoaderService } from '../services/loader.service';
-import { DadosTelaConsultaMedica } from '../models/responseDTO/DadosTelaConsultaMedica';
 import { AgendaApiService } from '../services/agendaApi.service';
 import { Dominio } from '../models/Dominio';
 import { PesquisarAgendaDTO } from '../models/requestDTO/pesquisarAgendaDTO';
 import { Agenda } from '../models/Agenda';
 import { LocalVariables } from '../util/localVariables';
-import { now } from 'jquery';
 import { DadosTelaExameMedico } from '../models/responseDTO/DadosTelaExameMedico';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../components/dialog/dialog.component';
 
 @Component({
     selector: 'exame-medico',
@@ -18,7 +18,8 @@ export class ExameMedicoComponent implements OnInit {
 
     public dadosTela: DadosTelaExameMedico;
 
-    constructor(private agendaApiService: AgendaApiService) { }
+    constructor(private agendaApiService: AgendaApiService,
+                private dialog: MatDialog) { }
 
     ngOnInit(): void {
 
@@ -30,7 +31,7 @@ export class ExameMedicoComponent implements OnInit {
     }
 
     pesquisar(event: any) {
-
+       
         let request: PesquisarAgendaDTO = new PesquisarAgendaDTO();
 
         request.codigoServico = event.target.selFiltroTipoExame.value;
@@ -57,7 +58,7 @@ export class ExameMedicoComponent implements OnInit {
         dadosConsulta.Data = new Date(item.data);
 
         this.agendaApiService.cadastrarExame(dadosConsulta).subscribe((dadosConsulta) => {
-            alert('Exame marcado com sucesso.');
+            this.dialog.open(DialogComponent, { data: { titulo: 'Informação', mensagem: 'Exame marcado com sucesso.' } });
         },
             (error) => {
                 alert('Erro ao marcar exame');

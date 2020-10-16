@@ -32,6 +32,9 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AutenticacaoService } from './services/autenticacao.service';
 import { AgendaApiService } from './services/agendaApi.service';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     imports: [
@@ -50,7 +53,9 @@ import { AgendaApiService } from './services/agendaApi.service';
         MatInputModule,
         MatSelectModule,
         MatTooltipModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatTableModule,
+        MatDialogModule
     ],
     declarations: [
         AppComponent,
@@ -65,7 +70,8 @@ import { AgendaApiService } from './services/agendaApi.service';
         NotificationsComponent,
         UpgradeComponent,
         CentralLeitosComponent,
-        LoginComponent
+        LoginComponent,
+        DialogComponent
     ],
     providers: [
         UsuarioApiService,
