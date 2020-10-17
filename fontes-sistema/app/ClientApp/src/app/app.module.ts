@@ -30,6 +30,7 @@ import { AgendaApiService } from './services/agendaApi.service';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
     imports: [
@@ -61,7 +62,8 @@ import { MatDialogModule } from '@angular/material/dialog';
         CadastroInternacaoComponent,
         CentralLeitosComponent,
         LoginComponent,
-        DialogComponent
+        DialogComponent,
+        HomeComponent
     ],
     providers: [
         UsuarioApiService,

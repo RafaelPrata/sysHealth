@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
 import { CadastroInternacaoComponent } from './cadastro-internacao/cadastro-internacao.component';
 import { ConsultaMedicaComponent } from './consulta-medica/consulta-medica.component';
@@ -10,11 +9,16 @@ import { ExameMedicoComponent } from './exame-medico/exame-medico.component';
 import { CentralLeitosComponent } from './central-leitos/central-leitos.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
     {
-        path: 'dashboard',
-        component: DashboardComponent        
+        path: '',
+        component: HomeComponent
+    },
+    {
+        path: 'home',
+        component: HomeComponent        
     },
     {
         path: 'cadastro-usuario',
