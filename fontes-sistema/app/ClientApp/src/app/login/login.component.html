@@ -1,13 +1,13 @@
 <div class="parent">
-    <div class="main-content loginForm">
+    <div class="main-content loginForm" style="left:30% !important;top:25% !important;">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card">
                         <div class="card-header card-header-primary">
                             <h4 class="card-title ">Login</h4>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body d-flex justify-content-center">
                             <form [formGroup]="form" (ngSubmit)="submit()">
                                 <div class="row">
                                     <div col="col-md-4">
@@ -23,11 +23,11 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-4">
+                                <!--<div class="row">-->
+                                    <div class="d-flex justify-content-center">
                                         <button type="submit" class="btn btn-primary pull-center">Login</button>
                                     </div>
-                                </div>
+                                <!--</div>-->
                             </form>
                         </div>
                     </div>
