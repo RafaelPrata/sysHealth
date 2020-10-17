@@ -1,158 +1,161 @@
 <div class="main-content">
-  <div class="container-fluid">
-      <div class="row">
-        <div *ngIf="this.modoConsulta" class="col-md-10">
-          <div class="card">
-              <div class="card-header card-header-danger">
-                  <h4 class="card-title ">Usuários</h4>
-                  <p class="card-category">Lista de usuários cadastrados</p>
-              </div>
-              <div class="card-body">
-                <form (ngSubmit)="pesquisar($event)">
-                <div class="row">
-                  <div class="col-md-6">
-                    <mat-form-field class="example-full-width">
-                      <input name="txtFiltroNome" matInput placeholder="Nome" type="text" >
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-3">
-                    <mat-form-field class="example-full-width">
-                      <input name="txtFiltroLogin" matInput placeholder="Login" type="text" >
-                    </mat-form-field>
-                  </div>                  
-                </div> 
-                <div class="row">
-                  <div class="col-md-3">
-                    <mat-form-field appearance="fill">
-                      <mat-label>Perfil</mat-label>
-                      <select matNativeControl name="selFiltroPerfil">
-                        <option *ngFor="let item of dadosTela.listaPerfil" [value]="item.codigo">{{item.descricao}}</option>
-                      </select>
-                    </mat-form-field> 
-                  </div> 
-                </div>  
-                <div class="row">
-                  <div class="col-md-4">
-                    <button mat-raised-button type="submit" class="btn btn-danger pull-left">Pesquisar</button>                  
-                    <button mat-raised-button type="button" class="btn btn-danger pull-left">Limpar</button>                  
-                  </div>
-                  <div class="col-md-2">
-                    <button mat-raised-button type="button" (click)="cadastrarNovo()" class="btn btn-danger pull-left">Cadastrar Novo</button>
-                  </div>
-                </div>  
-              </form>                                                          
-                  <div class="table-responsive">
-                      <table class="table">
-                          <thead class=" text-primary">
-                              <th>
-                                  Nome
-                              </th>
-                              <th>
-                                  Login
-                              </th>
-                              <th>
-                                  Senha
-                              </th>
-                              <th>
-                                  Nº Matrícula
-                              </th>
-                              <th>
-                                  Nº SUS
-                              </th>
-                              <th>
-
-                              </th>
-                          </thead>
-                          <tbody>
-                              <tr *ngFor="let item of listaUsuarios">
-                                  <td>
-                                      {{item.nome}}
-                                  </td>
-                                  <td>
-                                    {{item.login}}
-                                  </td>
-                                  <td>
-                                    {{item.senha}}
-                                  </td>
-                                  <td>
-                                    {{item.numeroMatricula}}
-                                  </td>
-                                  <td>
-                                    {{item.numeroSUS}}
-                                  </td>
-                                  <td>
-                                    <button type="button" class="btn btn-sm" title="Editar" (click)="exibirFormularioCadastro(item.codigo)">
-                                      <i class="fa fa-edit fa-5x" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-sm" title="Excluir" (click)="excluirCadastro(item.codigo)">
-                                      <i class="fa fa-remove fa-5x" aria-hidden="true"></i>
-                                    </button>
-                                  </td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
-              </div>
-          </div>
-      </div>        
-      <div *ngIf="!this.modoConsulta" class="col-md-10">
-          <div class="card">
-              <div class="card-header card-header-danger">
-                  <h4 class="card-title">Usuário</h4>
-                  <p class="card-category">Dados do usuário</p>
-              </div>
-              <div class="card-body">
-                  <form>
-                      <div class="row">
-                          <div class="col-md-10">
-                            <mat-form-field class="example-full-width">
-                              <input name="txtNome" matInput placeholder="Nome" type="text" [(ngModel)]="usuario.nome" >
-                            </mat-form-field>
-                          </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-5">
-                            <mat-form-field class="example-full-width">
-                              <input name="txtLogin" matInput placeholder="Login" [(ngModel)]="usuario.login">
-                            </mat-form-field>
+    <div class="container-fluid">
+        <div class="row">
+            <div *ngIf="this.modoConsulta" class="col-md-10">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Usuários</h4>
+                        <p class="card-category">Lista de usuários cadastrados</p>
+                    </div>
+                    <div class="card-body">
+                        <form (ngSubmit)="pesquisar($event)">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input name="txtFiltroNome" matInput placeholder="Nome" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input name="txtFiltroLogin" matInput placeholder="Login" type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Perfil</mat-label>
+                                        <select matNativeControl name="selFiltroPerfil">
+                                            <option *ngFor="let item of dadosTela.listaPerfil" [value]="item.codigo">{{item.descricao}}</option>
+                                        </select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button mat-raised-button type="submit" class="btn btn-primary pull-left">Pesquisar</button>
+                                    <button mat-raised-button type="button" class="btn btn-primary pull-left">Limpar</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <button mat-raised-button type="button" (click)="cadastrarNovo()" class="btn btn-primary pull-left">Cadastrar Novo</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                <th>
+                                    Nome
+                                </th>
+                                <th>
+                                    Login
+                                </th>
+                                <th>
+                                    Senha
+                                </th>
+                                <th>
+                                    Nº Matrícula
+                                </th>
+                                <th>
+                                    Nº SUS
+                                </th>
+                                <th>
+                                </th>
+                                <th>
+                                </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of listaUsuarios">
+                                        <td>
+                                            {{item.nome}}
+                                        </td>
+                                        <td>
+                                            {{item.login}}
+                                        </td>
+                                        <td>
+                                            {{item.senha}}
+                                        </td>
+                                        <td>
+                                            {{item.numeroMatricula}}
+                                        </td>
+                                        <td>
+                                            {{item.numeroSUS}}
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0)" title="Editar" (click)="exibirFormularioCadastro(item.codigo)">
+                                                <i class="material-icons" style="color:black" aria-hidden="true">edit</i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0)" title="Excluir" (click)="excluirCadastro(item.codigo)">
+                                                <i class="material-icons" style="color:black" aria-hidden="true">delete</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-md-5">
-                            <mat-form-field class="example-full-width">
-                              <input name="txtSenha" matInput placeholder="Senha" type="text" [(ngModel)]="usuario.senha">
-                            </mat-form-field>
-                        </div>
-                    </div>                          
-                      <div class="row">
-                          <div class="col-md-10">
-                            <mat-form-field class="example-full-width">
-                              <input name="txtNumeroMatricula" matInput placeholder="Número da matrícula" type="text" [(ngModel)]="usuario.numeroMatricula">
-                            </mat-form-field>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-10">
-                            <mat-form-field class="example-full-width">
-                              <input name="txtNumeroSus" matInput placeholder="Número SUS" type="text" [(ngModel)]="usuario.numeroSUS">
-                            </mat-form-field>
-                          </div>                             
-                      </div>
-                      <div class="row">
-                        <div class="col-md-5">
-                          <mat-form-field appearance="fill">
-                            <mat-label>Perfil</mat-label>
-                            <mat-select [(ngModel)]="usuario.codigoPerfil" name="selPerfil">
-                              <mat-option *ngFor="let item of dadosTela.listaPerfil" [selected]="item.codigo == usuario.codigoPerfil ? 'selected' : ''" [value]="item.codigo">{{item.descricao}}</mat-option>                              
-                            </mat-select>
-                          </mat-form-field> 
-                        </div>                             
-                      </div>                          
-                      <button mat-raised-button type="button" (click)="cadastrar()" class="btn btn-danger pull-left">Cadastrar</button>
-                      <button mat-raised-button type="button" (click)="this.modoConsulta = true" class="btn btn-danger pull-left">Voltar</button>
-                      <div class="clearfix"></div>
-                  </form>
-              </div>
-          </div>
-      </div>          
-  </div>
-  </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!this.modoConsulta" class="col-md-10">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Usuário</h4>
+                        <p class="card-category">Dados do usuário</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <mat-form-field class="example-full-width">
+                                        <input name="txtNome" matInput placeholder="Nome" type="text" [(ngModel)]="usuario.nome">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width">
+                                        <input name="txtLogin" matInput placeholder="Login" [(ngModel)]="usuario.login">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width">
+                                        <input name="txtSenha" matInput placeholder="Senha" type="text" [(ngModel)]="usuario.senha">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <mat-form-field class="example-full-width">
+                                        <input name="txtNumeroMatricula" matInput placeholder="Número da matrícula" type="text" [(ngModel)]="usuario.numeroMatricula">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <mat-form-field class="example-full-width">
+                                        <input name="txtNumeroSus" matInput placeholder="Número SUS" type="text" [(ngModel)]="usuario.numeroSUS">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Perfil</mat-label>
+                                        <mat-select [(ngModel)]="usuario.codigoPerfil" name="selPerfil">
+                                            <mat-option *ngFor="let item of dadosTela.listaPerfil" [selected]="item.codigo == usuario.codigoPerfil ? 'selected' : ''" [value]="item.codigo">{{item.descricao}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="button" (click)="cadastrar()" class="btn btn-primary pull-left">Cadastrar</button>
+                            <button mat-raised-button type="button" (click)="this.modoConsulta = true" class="btn btn-primary pull-left">Voltar</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

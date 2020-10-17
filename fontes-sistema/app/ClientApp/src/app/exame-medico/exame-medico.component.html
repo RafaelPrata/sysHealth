@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header card-header-danger">
+                    <div class="card-header card-header-primary">
                         <h4 class="card-title">Agendar exame médico</h4>
                     </div>
                     <div class="card-body">
@@ -24,34 +24,42 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-2">
-                                    <button mat-raised-button type="submit" class="btn btn-danger pull-left">Pesquisar</button>
+                                    <button mat-raised-button type="submit" class="btn btn-primary pull-left">Pesquisar</button>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
                         </form>
 
-                        <!--<mat-table [dataSource]="">-->
-                            <!-- User name Definition -->
-                            <!--<ng-container matColumnDef="codigoTipoExame">
+                        <!--<mat-table [dataSource]="this.dadosTela.listaOpcoesExame">
+                            <ng-container matColumnDef="codigoTipoExame">
                                 <mat-header-cell *matHeaderCellDef> Código Tipo Exame </mat-header-cell>
                                 <mat-cell *matCellDef="let row"> {{row.codigoTipoExame}} </mat-cell>
-                            </ng-container>-->
-
-                            <!-- Age Definition -->
-                            <!--<ng-container matColumnDef="data">
+                            </ng-container>
+                            <ng-container matColumnDef="data">
                                 <mat-header-cell *matHeaderCellDef> Data </mat-header-cell>
                                 <mat-cell *matCellDef="let row"> {{row.data | date:'dd/MM/yyyy'}} </mat-cell>
-                            </ng-container>-->
-
-                            <!-- Title Definition -->
-                            <!--<ng-container matColumnDef="title">
+                            </ng-container>
+                            <ng-container matColumnDef="title">
                                 <mat-header-cell *matHeaderCellDef> Horários Disponíveis </mat-header-cell>
                                 <mat-cell *matCellDef="let row"> {{1}} </mat-cell>
-                            </ng-container>-->
-
-                            <!-- Header and Row Declarations -->
-                            <!--<mat-header-row *matHeaderRowDef="['codigoTipoExame', 'data']"></mat-header-row>
-                            <mat-row *matRowDef="let row; columns: ['codigoTipoExame', 'data']"></mat-row>
+                            </ng-container>
+                            <ng-container matColumnDef="horarios">
+                                <mat-header-cell *matHeaderCellDef> Horários Disponíveis </mat-header-cell>
+                                <mat-cell *matCellDef="let row">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Horários</mat-label>
+                                        <select matNativeControl name="selHorarioDisponivel">
+                                            <option>Selecione</option>
+                                            <option *ngFor="let horarioItem of row.horarios" [value]="horarioItem.codigo">{{horarioItem.horaInicial}} - {{horarioItem.horaFinal}}</option>
+                                        </select>
+                                    </mat-form-field>
+                                    <a href="javascript:void(0)" title="Marcar Consulta" (click)="marcarExame($event, item)">
+                                        <i class="material-icons" style="color:black" aria-hidden="true">event</i>
+                                    </a>
+                                </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="['codigoTipoExame', 'data', 'horarios']"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: ['codigoTipoExame', 'data', 'horarios']"></mat-row>
                         </mat-table>-->
 
                         <div class="table-responsive">
@@ -85,9 +93,9 @@
                                             </mat-form-field>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-sm" title="Marcar Consulta" (click)="marcarExame($event, item)">
-                                                <i class="fa fa-check fa-5x" aria-hidden="true"></i>
-                                            </button>
+                                            <a href="javascript:void(0)" title="Marcar Exame" (click)="marcarExame($event, item)">
+                                                <i class="material-icons" style="color:black" aria-hidden="true">event</i>
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -6,11 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
 import { CadastroInternacaoComponent } from './cadastro-internacao/cadastro-internacao.component';
-import { TypographyComponent } from './typography/typography.component';
-import { IconsComponent } from './icons/icons.component';
-import { MapsComponent } from './maps/maps.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { UpgradeComponent } from './upgrade/upgrade.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
@@ -64,11 +59,6 @@ import { MatDialogModule } from '@angular/material/dialog';
         ConsultaMedicaComponent,
         CadastroUsuarioComponent,
         CadastroInternacaoComponent,
-        TypographyComponent,
-        IconsComponent,
-        MapsComponent,
-        NotificationsComponent,
-        UpgradeComponent,
         CentralLeitosComponent,
         LoginComponent,
         DialogComponent

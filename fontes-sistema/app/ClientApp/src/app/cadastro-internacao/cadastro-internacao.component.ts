@@ -6,6 +6,8 @@ import { InternacaoApiService } from 'app/services/internacaoApi.service';
 import { Dominio } from '../models/Dominio';
 import { error } from 'jquery';
 import { LocalVariables } from '../util/localVariables';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../components/dialog/dialog.component';
 // import {NgForm} from '@angular/forms';
 
 @Component({
@@ -22,9 +24,10 @@ export class CadastroInternacaoComponent implements OnInit {
 
     private dadosTela: DadosTelaCadastroInternacao
 
-    public modoConsulta:boolean;
+    public modoConsulta: boolean;
 
-    constructor(private internacaoApiService: InternacaoApiService) {
+    constructor(private internacaoApiService: InternacaoApiService,
+        private dialog: MatDialog) {
         this.internacao = new DadosInternacao();
         this.dadosTela = new DadosTelaCadastroInternacao();
         this.modoConsulta = true;
@@ -42,7 +45,7 @@ export class CadastroInternacaoComponent implements OnInit {
             this.dadosTela.listaClassificacao = listaClassificacao;
         })
 
-    }    
+    }
 
     exibirFormularioCadastro(codigoInternacao: number = null) {
 
@@ -68,15 +71,15 @@ export class CadastroInternacaoComponent implements OnInit {
         this.internacaoApiService.listarInternacao()
             .subscribe((listaInternacao: DadosInternacao[]) => {
 
-                this.listaInternacao = listaInternacao;                
+                this.listaInternacao = listaInternacao;
             });
     }
 
-    excluirCadastro(codigo: number){
+    excluirCadastro(codigo: number) {
 
     }
 
-    cadastrarNovo(){
+    cadastrarNovo() {
         this.modoConsulta = false;
         this.internacao = new DadosInternacao();
     }
@@ -86,31 +89,38 @@ export class CadastroInternacaoComponent implements OnInit {
         this.internacao.codigoUsuario = LocalVariables.codigoUsuario();
 
         this.internacaoApiService.cadastrarInternacao(this.internacao)
-                                    .subscribe((dados: DadosInternacao) =>{
-                                        alert('Pedido de internação cadastrada.');
-                                        this.listaInternacao.push(dados);
-                                        this.internacao = new DadosInternacao();
-                                    });
+            .subscribe((dados: DadosInternacao) => {
+
+                this.dialog.open(DialogComponent, {
+                    data: {
+                        titulo: 'Informação',
+                        mensagem: 'Pedido de internação cadastrada.'
+                    }
+                });
+
+                this.listaInternacao.push(dados);
+                this.internacao = new DadosInternacao();
+            });
     }
 
-    voltarListaUsuario(){        
+    voltarListaUsuario() {
         this.modoConsulta = true;
     }
 
-    pesquisar(event: any){
+    pesquisar(event: any) {
 
         let request: PesquisarInternacaoDTO = new PesquisarInternacaoDTO();
 
         request.codigoInternacao = event.target.txtFiltroNumeroInternacao.value;
         request.nomePaciente = event.target.txtFiltroNomePaciente.value;
         request.codigoClassificacao = event.target.selFiltroClassificacao.value;
-        request.codigoStatus = event.target.selFiltroStatus.value;  
-        
+        request.codigoStatus = event.target.selFiltroStatus.value;
+
         this.internacaoApiService.listarInternacao(request)
-                                    .subscribe((listaInternacao: DadosInternacao[]) =>{
-            this.listaInternacao = listaInternacao;
-        });
-                
+            .subscribe((listaInternacao: DadosInternacao[]) => {
+                this.listaInternacao = listaInternacao;
+            });
+
     }
 
 }

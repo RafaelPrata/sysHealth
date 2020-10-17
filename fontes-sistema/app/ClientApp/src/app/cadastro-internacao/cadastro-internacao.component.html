@@ -3,7 +3,7 @@
         <div *ngIf="modoConsulta" class="row">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header card-header-danger">
+                    <div class="card-header card-header-primary">
                         <h4 class="card-title ">Pedidos de internações</h4>
                         <p class="card-category">Lista de pedidos de internações</p>
                     </div>
@@ -45,11 +45,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <button mat-raised-button type="submit" class="btn btn-danger pull-left">Pesquisar</button>
-                                    <button mat-raised-button type="button" class="btn btn-danger pull-left">Limpar</button>
+                                    <button mat-raised-button type="submit" class="btn btn-primary pull-left">Pesquisar</button>
+                                    <button mat-raised-button type="button" class="btn btn-primary pull-left">Limpar</button>
                                 </div>
                                 <div class="col-md-2">
-                                    <button mat-raised-button type="button" (click)="cadastrarNovo()" class="btn btn-danger pull-left">Cadastrar Novo</button>
+                                    <button mat-raised-button type="button" (click)="cadastrarNovo()" class="btn btn-primary pull-left">Cadastrar Novo</button>
                                 </div>
                             </div>
                         </form>
@@ -70,12 +70,14 @@
                                                 <td>{{item.codigo}}</td>
                                                 <td>{{item.dataHoraSolicitacao | date:'dd/MM/yyyy'}}</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-sm" title="Editar" (click)="exibirFormularioCadastro(item.codigo)">
-                                                        <i class="fa fa-edit fa-5x" aria-hidden="true"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-sm" title="Excluir" (click)="excluirCadastro(item.codigo)">
-                                                        <i class="fa fa-remove fa-5x" aria-hidden="true"></i>
-                                                    </button>
+                                                    <a href="javascript:void(0)" class="nav-link" title="Editar" (click)="exibirFormularioCadastro(item.codigo)">
+                                                        <i class="material-icons" style="color:black" aria-hidden="true">edit</i>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="javascript:void(0)" class="nav-link" title="Excluir" (click)="excluirCadastro(item.codigo)">
+                                                        <i class="material-icons" style="color:black" aria-hidden="true">delete</i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -90,7 +92,7 @@
         <div *ngIf="!modoConsulta" class="row">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header card-header-danger">
+                    <div class="card-header card-header-primary">
                         <h4 class="card-title">Cadastro de Internação</h4>
                         <p class="card-category">Dados do pedido de internação</p>
                     </div>
@@ -158,7 +160,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card">
-                                        <div class="card-header card-header-danger">
+                                        <div class="card-header card-header-primary">
                                             <p class="card-category">Endereço do paciente</p>
                                         </div>
                                         <div class="card-body">
@@ -206,7 +208,7 @@
                                                         <mat-label>Estado</mat-label>
                                                         <mat-select [(ngModel)]="internacao.paciente.endereco.uf" name="selEstado">
                                                             <mat-option *ngFor="let item of this.dadosTela.listaEstados" [value]="item.sigla">{{item.sigla}}</mat-option>
-                                                        </mat-select>                                                        
+                                                        </mat-select>
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -240,7 +242,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-10">
-                                    <button mat-raised-button type="button" (click)="cadastrar()" class="btn btn-danger pull-left">Cadastrar</button>
+                                    <button mat-raised-button type="button" (click)="cadastrar()" class="btn btn-primary pull-left">Cadastrar</button>
                                     <button mat-raised-button type="button" (click)="voltarListaUsuario()" class="btn btn-danger pull-left">Voltar</button>
                                     <div class="clearfix"></div>
                                 </div>

@@ -4,6 +4,8 @@ import { Usuario } from '../models/Usuario';
 import { Component, OnInit } from '@angular/core';
 import { DadosTelaCadastroUsuario } from 'app/models/responseDTO/DadosTelaCadastroUsuario';
 import { PesquisarUsuarioDTO } from 'app/models/requestDTO/pesquisarUsuarioDTO';
+import { DialogComponent } from '../components/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 // import {NgForm} from '@angular/forms';
 
 @Component({
@@ -20,7 +22,8 @@ export class CadastroUsuarioComponent implements OnInit {
 
     private dadosTela: DadosTelaCadastroUsuario;
 
-    constructor(private usuarioApiService: UsuarioApiService) {
+    constructor(private usuarioApiService: UsuarioApiService,
+        private dialog: MatDialog) {
         this.usuario = new Usuario();
         this.dadosTela = new DadosTelaCadastroUsuario();
         this.modoConsulta = true;
@@ -32,10 +35,10 @@ export class CadastroUsuarioComponent implements OnInit {
         this.usuarioApiService.listarPerfil()
             .subscribe((listaPerfil: Dominio[]) => {
                 this.dadosTela.listaPerfil = listaPerfil;
-            });        
+            });
     }
 
-    pesquisar(event: any){
+    pesquisar(event: any) {
 
         let request = new PesquisarUsuarioDTO();
 
@@ -44,25 +47,25 @@ export class CadastroUsuarioComponent implements OnInit {
         request.codigoPerfil = event.target.selFiltroPerfil.value;
 
         this.usuarioApiService.listarUsuarios(request)
-        .subscribe((usuarios: Usuario[]) => {    
-            this.listaUsuarios = usuarios;
-        });        
+            .subscribe((usuarios: Usuario[]) => {
+                this.listaUsuarios = usuarios;
+            });
 
-    }    
+    }
 
     listarUsuarios(codigoUsuario: number = null) {
-                
+
         let request: PesquisarUsuarioDTO = new PesquisarUsuarioDTO();
 
-        if(codigoUsuario){
-            request.codigoUsuario = codigoUsuario;            
+        if (codigoUsuario) {
+            request.codigoUsuario = codigoUsuario;
         }
 
         this.usuarioApiService.listarUsuarios(request)
             .subscribe((usuarios: Usuario[]) => {
 
                 if (codigoUsuario) {
-                    this.usuario = usuarios[0];                    
+                    this.usuario = usuarios[0];
                 }
                 else
                     this.listaUsuarios = usuarios;
@@ -92,12 +95,23 @@ export class CadastroUsuarioComponent implements OnInit {
 
         if (this.usuario.codigo) {
             this.usuarioApiService.atualizarUsuario(this.usuario).subscribe((usuario: Usuario) => {
-                alert('Cadastro atualizado com sucesso.');
+                this.dialog.open(DialogComponent, {
+                    data: {
+                        titulo: 'Informação',
+                        mensagem: 'Cadastro atualizado com sucesso.'
+                    }
+                });
+
             }, error => console.log(error));
         }
         else {
             this.usuarioApiService.cadastrarUsuario(this.usuario).subscribe((usuario: Usuario) => {
-                alert('Cadastro realizado com sucesso.');
+                this.dialog.open(DialogComponent, {
+                    data: {
+                        titulo: 'Informação',
+                        mensagem: 'Cadastro realizado com sucesso.'
+                    }
+                });
                 this.listaUsuarios.push(usuario);
                 this.usuario = new Usuario();
             }, error => console.log(error));

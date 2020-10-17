@@ -7,6 +7,8 @@ import { PesquisarAgendaDTO } from '../models/requestDTO/pesquisarAgendaDTO';
 import { Agenda } from '../models/Agenda';
 import { LocalVariables } from '../util/localVariables';
 import { now } from 'jquery';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../components/dialog/dialog.component';
 
 @Component({
     selector: 'consulta-medica',
@@ -17,7 +19,8 @@ export class ConsultaMedicaComponent implements OnInit {
 
     public dadosTela: DadosTelaConsultaMedica;
 
-    constructor(private agendaApiService: AgendaApiService) { }
+    constructor(private agendaApiService: AgendaApiService,
+        private dialog: MatDialog) { }
 
     ngOnInit(): void {
 
@@ -37,13 +40,13 @@ export class ConsultaMedicaComponent implements OnInit {
 
         this.agendaApiService.listarOpcoesConsulta(request)
             .subscribe((listaOpcoesConsulta: any) => {
-                this.dadosTela.listaOpcoesConsulta = listaOpcoesConsulta;                
+                this.dadosTela.listaOpcoesConsulta = listaOpcoesConsulta;
             });
 
     }
 
     marcarConsulta(event, item: any) {
-        
+
         let codigoHorarioSelecionado = $(event.currentTarget.parentElement.parentElement)
             .find($("[name='selHorarioDisponivel']")).val();
 
@@ -56,10 +59,20 @@ export class ConsultaMedicaComponent implements OnInit {
 
 
         this.agendaApiService.cadastrarConsulta(dadosConsulta).subscribe((dadosConsulta) => {
-            alert('Consulta marcada com sucesso.');
+            this.dialog.open(DialogComponent, {
+                data: {
+                    titulo: 'Informação',
+                    mensagem: 'Consulta marcada com sucesso.'
+                }
+            });
         },
             (error) => {
-                alert('Erro ao marcar consulta');
+                this.dialog.open(DialogComponent, {
+                    data: {
+                        titulo: 'Informação',
+                        mensagem: 'Erro ao marcar consulta.'
+                    }
+                });
             });
     }
 

@@ -19,7 +19,7 @@ export class ExameMedicoComponent implements OnInit {
     public dadosTela: DadosTelaExameMedico;
 
     constructor(private agendaApiService: AgendaApiService,
-                private dialog: MatDialog) { }
+        private dialog: MatDialog) { }
 
     ngOnInit(): void {
 
@@ -31,7 +31,7 @@ export class ExameMedicoComponent implements OnInit {
     }
 
     pesquisar(event: any) {
-       
+
         let request: PesquisarAgendaDTO = new PesquisarAgendaDTO();
 
         request.codigoServico = event.target.selFiltroTipoExame.value;
@@ -58,7 +58,12 @@ export class ExameMedicoComponent implements OnInit {
         dadosConsulta.Data = new Date(item.data);
 
         this.agendaApiService.cadastrarExame(dadosConsulta).subscribe((dadosConsulta) => {
-            this.dialog.open(DialogComponent, { data: { titulo: 'Informação', mensagem: 'Exame marcado com sucesso.' } });
+            this.dialog.open(DialogComponent, {
+                data: {
+                    titulo: 'Informação',
+                    mensagem: 'Exame marcado com sucesso.'
+                }
+            });
         },
             (error) => {
                 alert('Erro ao marcar exame');
