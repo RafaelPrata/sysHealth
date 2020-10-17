@@ -3,6 +3,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { AutenticacaoService } from '../../services/autenticacao.service';
+import { LocalVariables } from '../../util/localVariables';
 
 @Component({
     selector: 'app-navbar',
@@ -15,8 +16,7 @@ export class NavbarComponent implements OnInit {
     mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
-
-
+    private nomeUsuario: string
 
     constructor(location: Location,
         private element: ElementRef,
@@ -26,8 +26,6 @@ export class NavbarComponent implements OnInit {
         this.location = location;
         this.sidebarVisible = false;
     }
-
-
 
     ngOnInit() {
 
@@ -42,6 +40,8 @@ export class NavbarComponent implements OnInit {
                 this.mobile_menu_visible = 0;
             }
         });
+
+        this.nomeUsuario = LocalVariables.getVariable("nomeUsuario");        
     }
 
     sidebarOpen() {
@@ -121,7 +121,8 @@ export class NavbarComponent implements OnInit {
 
     logOut() {
 
-        this.autenticacaoService.logOut();
+        alert(LocalVariables.getVariable("nomeUsuario"));
+        this.autenticacaoService.logOut();        
     }
 
     getTitle() {
